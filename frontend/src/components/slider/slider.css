@@ -1,0 +1,70 @@
+/*@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";*/
+.Slider_App {
+  /*border: 1px solid purple;*/
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000;
+  width: 250px;
+  /*margin: 10rem auto;*/
+  height: 390px;
+}
+.slide img {
+  /*width: 700px; /*20rem;*/
+  margin: 0 auto;
+}
+
+.slide {
+  transform: scale(0.2);
+  transition: transform 300ms;
+  opacity: 0.5;
+}
+
+.activeSlide {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.arrow {
+  background-color: black; /*#fff;*/
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow svg {
+  transition: color 300ms;
+}
+
+.arrow svg:hover {
+  color: #68edff;
+}
+
+.next {
+  right: 0%;
+  top: 50%;
+}
+
+.prev {
+  left: 0%;
+  top: 50%;
+}
+@media screen and (min-width: 375px) {
+  .Slider_App {
+    width: 300px;
+  }
+}
+@media screen and (min-width: 425px) {
+  .Slider_App {
+    width: 400px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .Slider_App {
+    width: 550px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .Slider_App {
+    width: 700px;
+  }
+}
