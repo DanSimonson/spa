@@ -18,7 +18,7 @@ function Navbar() {
     history.push("/");
   };
   const createMessage = () => {
-    history.push("/message");
+    history.push("/pages/messages");
   };
 
   return (
@@ -37,6 +37,9 @@ function Navbar() {
             </li>
             <li>
               <a onClick={createMessage}>Send Message</a>
+            </li>
+            <li>
+              <a onClick={createMessage}>Sign In</a>
             </li>
           </ul>
         </div>

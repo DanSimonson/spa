@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
@@ -6,18 +7,24 @@ import Slider from "./components/slider/slider_images";
 import "./App.css";
 import styled from "styled-components";
 const BodyWrap = styled.div``;
-/**
- * height: 90vh;
-  h1 {
-    color: green;
-    margin: 0 auto;
-  }
- */
+//  height: 90vh;
+//   h1 {
+//     color: green;
+//     margin: 0 auto;
+//   }
+
 const App = () => {
   const [headerChange, setHeaderChange] = useState(false);
   const history = useHistory();
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get("/api/messages");
+      setMessages(data);
+    };
+    fetchData();
+
     const parralax = document.querySelector("#parallax");
     window.addEventListener("scroll", () => {
       let offset = window.pageYOffset;
