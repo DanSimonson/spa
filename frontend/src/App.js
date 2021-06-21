@@ -19,15 +19,15 @@ const BodyWrap = styled.div``;
 const App = () => {
   const [headerChange, setHeaderChange] = useState(false);
   const history = useHistory();
-  //const [messages, setMessages] = useState([]);
-  //const [loading, setLoading] = useState(false);
-  //const [error, setError] = useState(false);
-  const dispatch = useDispatch();
-  const messageList = useSelector((state) => state.messageList);
-  const { loading, error, messages } = messageList;
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  //const dispatch = useDispatch();
+  //const messageList = useSelector((state) => state.messageList);
+  //const { loading, error, messages } = messageList;
 
   useEffect(() => {
-    dispatch(listMessages());
+    //dispatch(listMessages());
 
     const parralax = document.querySelector("#parallax");
     window.addEventListener("scroll", () => {
