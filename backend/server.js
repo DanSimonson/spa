@@ -10,6 +10,9 @@ dotenv.config();
 connectDB();
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // app.get("/api/messages", (req, res) => {
 //   res.send(data.messages);
 // });
