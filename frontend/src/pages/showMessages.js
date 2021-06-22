@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import LoadingBox from "../components/loadingBox";
 import MessageBox from "../components/messageBox";
 //import Nav from "../../res_components/navbar/nav.js";
-//import ModalForm from "../modal/modalForm";
-//import Footer from "../../components/Footer";
+import ModalForm from "../components/modal/modalForm";
+import Footer from "../components/footer";
 import Axios from "axios";
 import {
   ListGroup,
@@ -74,8 +74,72 @@ const ShowMessages = (props) => {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <div>success</div>
+        <>
+          <ListGroup className="mt-4">
+            {messages.map((reservation, index) => (
+              <div>
+                <Row>
+                  <Col sm="12" md={{ size: 6, offset: 3 }}>
+                    <Card
+                      body
+                      inverse
+                      style={{
+                        backgroundColor: "#6a0dad",
+                        borderColor: "#FFFF00",
+                      }}
+                      className="text-center"
+                      key={reservation._id}
+                    >
+                      <CardTitle tag="h1">RESERVATION INFORMATION</CardTitle>
+                      <CardTitle tag="h5">
+                        Reservation ID: {reservation._id}
+                      </CardTitle>
+                      <CardTitle tag="h5">
+                        Last Name: {reservation.lastName}
+                      </CardTitle>
+                      <CardTitle tag="h5">
+                        First Name: {reservation.firstName}
+                      </CardTitle>
+                      <CardTitle tag="h5">
+                        Message Date: {reservation.startDate}
+                      </CardTitle>
+                      <CardText tag="h2">
+                        Message: {reservation.message}
+                      </CardText>
+                      <div>
+                        <Button
+                          color="warning"
+                          size="lg"
+                          onClick={() => handleEdit(reservation._id)}
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button
+                          color="warning"
+                          size="lg"
+                          onClick={(event) =>
+                            handleDelete(reservation._id, index)
+                          }
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </Card>
+                  </Col>
+                </Row>
+              </div>
+            ))}
+          </ListGroup>
+        </>
       )}
+      <Footer />
+      {/*{loading === true && <Footer />}*/}
+      {/*<ModalForm
+        reservations={reservations}
+        foundReservation={foundArray}
+        openModal={openModal}
+        handleCloseFromParent={handleClose}
+      />*/}
     </>
   );
 };
