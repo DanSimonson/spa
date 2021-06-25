@@ -22,12 +22,14 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [value, setValue] = useState();
   //const dispatch = useDispatch();
   //const messageList = useSelector((state) => state.messageList);
   //const { loading, error, messages } = messageList;
 
   useEffect(() => {
     //dispatch(listMessages());
+    reload();
 
     const parralax = document.querySelector("#parallax");
     window.addEventListener("scroll", () => {
@@ -38,6 +40,13 @@ const App = () => {
     });
   }, []);
 
+  function reload() {
+    let temp = JSON.parse(localStorage.getItem("userInfo"));
+    if (temp) {
+      //window.location.reload();
+    }
+    //window.location.reload();
+  }
   const sendMessage = () => {
     //redirect the page
     //history.push("/messages");

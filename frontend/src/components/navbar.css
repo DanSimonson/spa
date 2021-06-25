@@ -69,6 +69,42 @@ body {
   background-color: #6a0dad;
   border-radius: 10px;
 }
+/* Dropdown */
+.hidden {
+  display: none;
+}
+.visuallyhidden {
+  opacity: 0;
+}
+.dropdown {
+  display: inline-block;
+  position: relative;
+  /* margin-right: 30px; */
+}
+.dropdown-content {
+  position: absolute;
+  display: none;
+  width: 110px;
+  margin-right: 10px;
+  right: 0;
+  top: 3rem;
+
+  min-width: 12rem;
+  padding: 1rem;
+  z-index: 1;
+  background-color: white; /*#203040;*/
+  /* opacity: 0; */
+  /* margin: 0;
+  margin-top: 0.4rem;
+  border-radius: 0.5rem; */
+  /* transition: width 2s; */
+}
+/* .navbar-links li {
+  display: block;
+} */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 @media (max-width: 800px) {
   .navbar {
