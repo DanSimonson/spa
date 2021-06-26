@@ -33,8 +33,6 @@ export default function SigninPage() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(Signin(email, password));
-    //let temp = JSON.parse(localStorage.getItem("userInfo"));
-    console.log("signin error: ", error);
     history.push("/");
   };
   return (

@@ -3,7 +3,6 @@ import "./navbar.css";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
-import { Signin } from "../actions/userActions";
 
 function Navbar(props) {
   console.log("Navbar props: ", props);
@@ -16,15 +15,12 @@ function Navbar(props) {
   const [user, setUser] = useState();
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
-  console.log("navbar error: ", error);
-  console.log("navbar loading: ", loading);
-  console.log("navbar useInfo: ", userInfo);
-  let temp = JSON.parse(localStorage.getItem("userInfo"));
   let history = useHistory();
+  if (error !== undefined) {
+    window.history.back();
+  }
 
   useEffect(() => {
-    let temp = JSON.parse(localStorage.getItem("userInfo"));
-    console.log("temp: ", temp);
     const toggleButton = document.getElementsByClassName("toggle-button")[0];
     const navbarLinks = document.getElementsByClassName("navbar-links")[0];
 
@@ -66,7 +62,7 @@ function Navbar(props) {
             <li>
               <a onClick={createMessage}>Send Message</a>
             </li>
-            {loading === false ? (
+            {loading === false && userInfo ? (
               <li>
                 <a>{userInfo.data.name}</a>
               </li>
