@@ -33,23 +33,14 @@ export default function SigninPage() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(Signin(email, password));
-    let temp = JSON.parse(localStorage.getItem("userInfo"));
-    setUser(userInfo);
-    //history.push("/");
-    //window.location.reload();
-    console.log("userInfo: ", userInfo);
-    if (userInfo !== undefined) {
-      //console.log("userInfo undefined");
-      console.log("tested userInfo.name: ", userInfo.name);
-    } else {
-      console.log("tested userInfo.name: ", userInfo.name);
-    }
+    //let temp = JSON.parse(localStorage.getItem("userInfo"));
+    console.log("signin error: ", error);
+    history.push("/");
   };
   return (
     <>
-      <Navbar user={userInfo} />
+      <Navbar email={email} password={password} />
       <div>
-        888{userInfo ? userInfo.name : "no user Info"}9999
         <Form className="form" onSubmit={submitHandler}>
           <div>
             <h1>Sign In</h1>
@@ -92,7 +83,6 @@ export default function SigninPage() {
           </div>
         </Form>
       </div>
-      {/*<Footer />*/}
     </>
   );
 }
