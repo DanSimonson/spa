@@ -11,10 +11,17 @@ function Navbar(props) {
   console.log("password: ", password);
 
   let dispatch = useDispatch();
-  const [go, setGo] = useState(false);
-  const [user, setUser] = useState();
+  let isAdmin;
+  // const [go, setGo] = useState(false);
+  // const [user, setUser] = useState();
+  //const [isAdmin, setIsAdmin] = useState(false);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
+  if (userInfo) {
+    if (userInfo.data.isAdmin === true) {
+      isAdmin = true;
+    }
+  }
   let history = useHistory();
   if (error !== undefined) {
     window.history.back();
@@ -67,7 +74,7 @@ function Navbar(props) {
                 <a>{userInfo.data.name}</a>
               </li>
             ) : null}
-            {userInfo ? (
+            {isAdmin ? (
               <Link to="/showMessages">
                 <li>
                   <a>Show Messages</a>
