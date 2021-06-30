@@ -68,6 +68,14 @@ function Navbar(props) {
               </li>
             ) : null}
             {userInfo ? (
+              <Link to="/showMessages">
+                <li>
+                  <a>Show Messages</a>
+                </li>
+              </Link>
+            ) : null}
+
+            {userInfo ? (
               <li>
                 <a onClick={signoutHandler}>Sign Out</a>
               </li>
