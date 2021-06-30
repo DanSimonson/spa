@@ -5,6 +5,7 @@ import App from "./App";
 import Messages from "./pages/messages";
 import ShowMessages from "./pages/showMessages";
 import SigninPage from "./pages/signIn";
+import RegisterPage from "./pages/register";
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
         <Route path="/messages" exact component={Messages} />
         <Route path="/showmessages" exact component={ShowMessages} />
         <Route path="/signin" exact component={SigninPage} />
+        <Route path="/register" exact component={RegisterPage} />
       </Switch>
     </BrowserRouter>
   );
