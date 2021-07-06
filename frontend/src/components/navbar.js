@@ -5,21 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
 
 function Navbar(props) {
-  console.log("Navbar props: ", props);
   const { email, password } = props;
-  console.log("email: ", email);
-  console.log("password: ", password);
-
   let dispatch = useDispatch();
-  let isAdmin;
-  // const [go, setGo] = useState(false);
-  // const [user, setUser] = useState();
-  //const [isAdmin, setIsAdmin] = useState(false);
+  let isAdmin = false;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
+  const userRegister = useSelector((state) => state.userRegister);
   if (userInfo) {
-    if (userInfo.data.isAdmin === true) {
-      isAdmin = true;
+    if (userInfo.data) {
+      if (userInfo.data.isAdmin === true) {
+        isAdmin = true;
+      }
     }
   }
   let history = useHistory();
@@ -69,7 +65,15 @@ function Navbar(props) {
             <li>
               <a onClick={createMessage}>Send Message</a>
             </li>
-            {loading === false && userInfo ? (
+            {loading === false && userInfo && !isAdmin ? (
+              <>
+                <li>
+                  <a>{userInfo.data.name}</a>
+                </li>
+              </>
+            ) : null}
+
+            {isAdmin ? (
               <li>
                 <a>{userInfo.data.name}</a>
               </li>

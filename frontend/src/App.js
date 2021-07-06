@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { listMessages } from "./actions/messageActions";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import LoadingBox from "./components/loadingBox";
 import MessageBox from "./components/messageBox";
 import Slider from "./components/slider/slider_images";
-import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import styled from "styled-components";
 const BodyWrap = styled.div``;
@@ -23,14 +23,9 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState();
-  //const dispatch = useDispatch();
-  //const messageList = useSelector((state) => state.messageList);
-  //const { loading, error, messages } = messageList;
 
   useEffect(() => {
-    //dispatch(listMessages());
-    reload();
-
+    //reload();
     const parralax = document.querySelector("#parallax");
     window.addEventListener("scroll", () => {
       let offset = window.pageYOffset;
@@ -40,16 +35,16 @@ const App = () => {
     });
   }, []);
 
-  function reload() {
-    let temp = JSON.parse(localStorage.getItem("userInfo"));
-    if (temp) {
-      //window.location.reload();
-    }
-    //window.location.reload();
-  }
+  // function reload() {
+  //   let temp = JSON.parse(localStorage.getItem("userInfo"));
+  //   if (temp) {
+  //     //window.location.reload();
+  //   }
+  //   //window.location.reload();
+  // }
   const sendMessage = () => {
     //redirect the page
-    //history.push("/messages");
+    history.push("/messages");
   };
 
   return (

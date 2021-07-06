@@ -35,9 +35,10 @@ export default function SigninPage() {
     dispatch(Signin(email, password));
     history.push("/");
   };
+
   return (
     <>
-      <Navbar email={email} password={password} />
+      <Navbar />
       <div>
         <Form className="form" onSubmit={submitHandler}>
           <div>

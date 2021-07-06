@@ -5,6 +5,10 @@ const messageSchema = new mongoose.Schema(
   {
     lastName: { type: String, required: true },
     firstName: { type: String, required: true },
+    phone: { type: String, required: true },
+    email: { type: String, required: true },
+    appointment: { type: Date, required: true },
+    appointmentTime: { type: String, required: true },
     message: { type: String, required: true },
   },
   {
