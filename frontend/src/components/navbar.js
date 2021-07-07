@@ -20,7 +20,7 @@ function Navbar(props) {
   }
   let history = useHistory();
   if (error !== undefined) {
-    window.history.back();
+    //window.history.back();
   }
 
   useEffect(() => {

@@ -33,8 +33,15 @@ export default function SigninPage() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(Signin(email, password));
-    history.push("/");
+    setEmail("");
+    setPassword("");
   };
+  // const handleEmail = (e) => {
+  //   setEmail(e.target.value);
+  // };
+  // const handlePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   return (
     <>
@@ -52,20 +59,22 @@ export default function SigninPage() {
             <Label htmlFor="email">Email</Label>
             <Input
               type="email"
-              id="email"
+              id="emailInput"
               placeholder="Enter email"
               required
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
             ></Input>
           </div>
           <div>
             <Label htmlFor="password">Password</Label>
             <Input
               type="password"
-              id="password"
+              id="passwordInput"
               placeholder="Enter password"
               required
               onChange={(e) => setPassword(e.target.value)}
+              value={password}
             ></Input>
           </div>
           <div>
