@@ -30,18 +30,17 @@ export default function SigninPage() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
   const [user, setUser] = useState();
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(Signin(email, password));
     setEmail("");
     setPassword("");
+    if (error === "Request failed with status code 401") {
+      //history.push("/");
+      return;
+    }
   };
-  // const handleEmail = (e) => {
-  //   setEmail(e.target.value);
-  // };
-  // const handlePassword = (e) => {
-  //   setPassword(e.target.value);
-  // };
 
   return (
     <>

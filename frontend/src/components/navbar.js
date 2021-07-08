@@ -19,9 +19,9 @@ function Navbar(props) {
     }
   }
   let history = useHistory();
-  if (error !== undefined) {
-    //window.history.back();
-  }
+  // if (error !== undefined) {
+  //   window.history.back();
+  // }
 
   useEffect(() => {
     const toggleButton = document.getElementsByClassName("toggle-button")[0];
