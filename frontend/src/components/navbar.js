@@ -11,6 +11,11 @@ function Navbar(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
   const userRegister = useSelector((state) => state.userRegister);
+  let user = localStorage.getItem("userInfo");
+  if (user) {
+    isAdmin = true;
+    userInfo.data = { name: userInfo.name };
+  }
   if (userInfo) {
     if (userInfo.data) {
       if (userInfo.data.isAdmin === true) {
@@ -74,9 +79,11 @@ function Navbar(props) {
             ) : null}
 
             {isAdmin ? (
-              <li>
-                <a>{userInfo.data.name}</a>
-              </li>
+              <>
+                <li>
+                  <a>{userInfo.data.name}</a>
+                </li>
+              </>
             ) : null}
             {isAdmin ? (
               <Link to="/showMessages">
