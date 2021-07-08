@@ -12,6 +12,23 @@ function Navbar(props) {
   const { userInfo, loading, error } = userSignin;
   const userRegister = useSelector((state) => state.userRegister);
   let user = JSON.parse(localStorage.getItem("userInfo"));
+
+  useEffect(() => {
+    if (error === "Request failed with status code 401") {
+      history.push("/signIn");
+    }
+  }, [error]);
+
+  useEffect(() => {
+    const toggleButton = document.getElementsByClassName("toggle-button")[0];
+    const navbarLinks = document.getElementsByClassName("navbar-links")[0];
+
+    toggleButton.addEventListener("click", () => {
+      navbarLinks.classList.toggle("active");
+      //navbarLinks.classList.add("anime");
+    });
+  }, []);
+
   if (user) {
     if (user.isAdmin === true) {
       isAdmin = true;
@@ -30,20 +47,8 @@ function Navbar(props) {
       }
     }
   }
+
   let history = useHistory();
-  // if (error !== undefined) {
-  //   window.history.back();
-  // }
-
-  useEffect(() => {
-    const toggleButton = document.getElementsByClassName("toggle-button")[0];
-    const navbarLinks = document.getElementsByClassName("navbar-links")[0];
-
-    toggleButton.addEventListener("click", () => {
-      navbarLinks.classList.toggle("active");
-      //navbarLinks.classList.add("anime");
-    });
-  }, []);
 
   const goHome = () => {
     history.push("/");
@@ -58,7 +63,7 @@ function Navbar(props) {
   const signinHandler = () => {
     history.push("/signin");
   };
-  //loading === false && userInfo &&
+
   return (
     <body>
       <nav className="navbar">
@@ -99,7 +104,6 @@ function Navbar(props) {
                 </li>
               </Link>
             ) : null}
-
             {userInfo ? (
               <li>
                 <a onClick={signoutHandler}>Sign Out</a>

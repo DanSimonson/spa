@@ -42,10 +42,7 @@ export default function SigninPage() {
     dispatch(Signin(email, password));
     setEmail("");
     setPassword("");
-    if (error === "Request failed with status code 401") {
-      //history.push("/");
-      return;
-    }
+    history.push("/");
   };
 
   return (
