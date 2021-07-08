@@ -31,6 +31,12 @@ export default function SigninPage() {
   const { userInfo, loading, error } = userSignin;
   const [user, setUser] = useState();
 
+  if (loading === false && userSignin.hasOwnProperty["userInfo"]) {
+    if (userInfo) {
+      history.push("/");
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(Signin(email, password));
