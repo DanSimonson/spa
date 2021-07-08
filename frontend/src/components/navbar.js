@@ -11,11 +11,18 @@ function Navbar(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
   const userRegister = useSelector((state) => state.userRegister);
-  let user = localStorage.getItem("userInfo");
+  let user = JSON.parse(localStorage.getItem("userInfo"));
   if (user) {
-    isAdmin = true;
-    userInfo.data = { name: userInfo.name };
+    if (user.isAdmin === true) {
+      isAdmin = true;
+      userInfo.data = { name: userInfo.name };
+    }
+    if (user.isAdmin === false) {
+      userInfo.data = { name: userInfo.name };
+      isAdmin = false;
+    }
   }
+
   if (userInfo) {
     if (userInfo.data) {
       if (userInfo.data.isAdmin === true) {
@@ -51,7 +58,7 @@ function Navbar(props) {
   const signinHandler = () => {
     history.push("/signin");
   };
-
+  //loading === false && userInfo &&
   return (
     <body>
       <nav className="navbar">
@@ -70,7 +77,7 @@ function Navbar(props) {
             <li>
               <a onClick={createMessage}>Send Message</a>
             </li>
-            {loading === false && userInfo && !isAdmin ? (
+            {isAdmin === false && userInfo ? (
               <>
                 <li>
                   <a>{userInfo.data.name}</a>
