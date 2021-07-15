@@ -15,6 +15,7 @@ export const listMessages = () => async (dispatch) => {
   });
   try {
     const { data } = await Axios.get("/api/messages");
+
     //dispatch({ type: MESSAGE_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: MESSAGE_LIST_FAIL, payload: error.message });
@@ -27,23 +28,24 @@ export const createMessage =
       payload: { firstName, lastName, phone, email, message },
     });
     try {
-      // const { data } = await axios.post("/api/messages/create", {
-      //   firstName,
-      //   lastName,
-      //   phone,
-      //   email,
-      //   message,
-      // });
-      //dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-      //localStorage.setItem("userInfo", JSON.stringify(data));
+      const { data } = await Axios.post("/api/messages/create", {
+        firstName,
+        lastName,
+        phone,
+        email,
+        message,
+      });
+      //console.log("data:", data);
+      dispatch({ type: MESSAGE_CREATE_SUCCESS, payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
-      // dispatch({
-      //   type: USER_SIGNIN_FAIL,
-      //   payload:
-      //     error.response && error.response.data.message
-      //       ? error.response.data.message
-      //       : error.message,
-      // });
+      dispatch({
+        type: MESSAGE_CREATE_FAIL,
+        payload: error.message,
+        //     error.response && error.response.data.message
+        //       ? error.response.data.message
+        //       : error.message,
+      });
     }
   };
 

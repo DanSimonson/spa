@@ -35,9 +35,11 @@ const BodyWrap = styled.div`
 const initialFormState = {
   lastName: "",
   firstName: "",
+  phone: "",
+  email: "",
   startDate: "",
   endDate: "",
-  content: "",
+  message: "",
 };
 
 function Message() {
@@ -51,6 +53,9 @@ function Message() {
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
   const dispatch = useDispatch();
+  //getting the messages from redux using useSelector
+  // const messageCreate = useSelector((state) => state.messageCreate);
+  // const { loading, error, messages } = messageCreate;
 
   /****Methods****/
   useEffect(() => {
@@ -69,33 +74,31 @@ function Message() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    let validForm = validateForm();
+    //let validForm = validateForm();
     console.log("forms: ", form);
-    dispatch(
-      createMessage(
-        form.firstName,
-        form.lastName,
-        form.phone,
-        form.email,
-        form.message
-      )
-    );
+    let firstName = form.firstName;
+    let lastName = form.lastName;
+    let phone = form.phone;
+    let email = form.email;
+    let message = form.message;
+    // form.firstName, form.lastName, form.phone, form.email, form.message;
+    dispatch(createMessage(firstName, lastName, phone, email, message));
     //validForm
-    let isValid = true;
-    if (isValid) {
-      axios
-        .post(`${process.env.REACT_APP_API}/posts`, form)
-        .then((response) => {
-          console.log("response: ", response);
-          //set boolean to clear form in useEffect hook
-          setSubmitted(true);
-          //redirect the page
-          history.push("/");
-        })
-        .catch((err) => {
-          console.log("handleSubmit error: ", err);
-        });
-    }
+    // let isValid = true;
+    // if (isValid) {
+    //   axios
+    //     .post(`${process.env.REACT_APP_API}/posts`, form)
+    //     .then((response) => {
+    //       console.log("response: ", response);
+    //       //set boolean to clear form in useEffect hook
+    //       setSubmitted(true);
+    //       //redirect the page
+    //       history.push("/");
+    //     })
+    //     .catch((err) => {
+    //       console.log("handleSubmit error: ", err);
+    //     });
+    // }
   };
   const validateForm = () => {
     let lastName = document.forms["sendMessageForm"]["lastName"].value;

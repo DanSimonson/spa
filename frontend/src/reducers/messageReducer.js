@@ -7,6 +7,13 @@ import {
   MESSAGE_CREATE_FAIL,
   MESSAGE_CREATE_RESET,
 } from "../constants/messageConstants";
+let initialState = {
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  message: "",
+};
 
 export const messageListReducer = (state = { messages: [] }, action) => {
   switch (action.type) {
@@ -20,8 +27,8 @@ export const messageListReducer = (state = { messages: [] }, action) => {
       return state;
   }
 };
-
-export const messageCreateReducer = (state = {}, action) => {
+//messages: []
+export const messageCreateReducer = (state = initialState, action) => {
   switch (action.type) {
     case MESSAGE_CREATE_REQUEST:
       return { loading: true };

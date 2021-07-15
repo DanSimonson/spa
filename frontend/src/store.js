@@ -1,6 +1,9 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { messageListReducer } from "./reducers/messageReducer";
+import {
+  messageListReducer,
+  messageCreateReducer,
+} from "./reducers/messageReducer";
 import { userRegisterReducer, userSigninReducer } from "./reducers/userReducer";
 
 const initialState = {
@@ -12,6 +15,7 @@ const initialState = {
 };
 const reducer = combineReducers({
   messageList: messageListReducer,
+  messageCreate: messageCreateReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
 });
