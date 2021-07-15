@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import styled from "styled-components";
+import { createMessage } from "../actions/messageActions";
 
 import axios from "axios";
 import {
@@ -44,8 +46,11 @@ function Message() {
   const history = useHistory();
   const [lastNameInValid, setLastNameInValid] = useState(false);
   const [firstNameInValid, setFirstNameInValid] = useState(false);
+  const [phoneInValid, setPhoneInValid] = useState(true);
+  const [emailInValid, setEmailInValid] = useState(true);
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
+  const dispatch = useDispatch();
 
   /****Methods****/
   useEffect(() => {
@@ -66,7 +71,18 @@ function Message() {
     event.preventDefault();
     let validForm = validateForm();
     console.log("forms: ", form);
-    if (validForm) {
+    dispatch(
+      createMessage(
+        form.firstName,
+        form.lastName,
+        form.phone,
+        form.email,
+        form.message
+      )
+    );
+    //validForm
+    let isValid = true;
+    if (isValid) {
       axios
         .post(`${process.env.REACT_APP_API}/posts`, form)
         .then((response) => {
@@ -85,6 +101,8 @@ function Message() {
     let lastName = document.forms["sendMessageForm"]["lastName"].value;
     let firstName = document.forms["sendMessageForm"]["firstName"].value;
     let startDate = document.forms["sendMessageForm"]["startDate"].value;
+    let phone = document.forms["sendMessageForm"]["phone"].value;
+    let email = document.forms["sendMessageForm"]["email"].value;
     let message = document.forms["sendMessageForm"]["content"].value;
     if (lastName === "") {
       setLastNameInValid(true);
@@ -198,6 +216,32 @@ function Message() {
                 )}
               </FormGroup>
               <FormGroup>
+                <Label style={{ color: "#fff" }} for="phone" className="mt-3">
+                  Phone
+                </Label>
+                <Input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  placeholder="Phone Number"
+                  onChange={handleChange}
+                  value={form.phone}
+                ></Input>
+              </FormGroup>
+              <FormGroup>
+                <Label style={{ color: "#fff" }} for="email" className="mt-3">
+                  Email
+                </Label>
+                <Input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  onChange={handleChange}
+                  value={form.email}
+                ></Input>
+              </FormGroup>
+              {/*<FormGroup>
                 <Label
                   style={{
                     color: "#fff",
@@ -220,7 +264,7 @@ function Message() {
                     Input format must be mm/dd/yyy
                   </Label>
                 )}
-              </FormGroup>
+              </FormGroup>*/}
               <FormGroup>
                 <Label
                   style={{

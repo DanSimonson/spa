@@ -22,6 +22,21 @@ messageRouter.get(
   })
 );
 
+messageRouter.post(
+  "/create",
+  expressAsyncHandler(async (req, res) => {
+    const message = new Message({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      email: req.body.email,
+      message: req.body.message,
+    });
+    const createdMessage = await message.save();
+    res.send({ note: "Message Created", message: createdMessage });
+  })
+);
+
 export default messageRouter;
 
 // // @route GET api/items
