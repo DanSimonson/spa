@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listMessages } from "../actions/messageActions";
 import { useSelector, useDispatch } from "react-redux";
+import Navbar from "../components/navbar";
 import LoadingBox from "../components/loadingBox";
 import MessageBox from "../components/messageBox";
 //import Nav from "../../res_components/navbar/nav.js";
@@ -69,6 +70,9 @@ const ShowMessages = (props) => {
   /*** end methods ***/
   return (
     <>
+      <div className="header" id="myHeader">
+        <Navbar />
+      </div>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (

@@ -15,8 +15,7 @@ export const listMessages = () => async (dispatch) => {
   });
   try {
     const { data } = await Axios.get("/api/messages");
-
-    //dispatch({ type: MESSAGE_LIST_SUCCESS, payload: data });
+    dispatch({ type: MESSAGE_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: MESSAGE_LIST_FAIL, payload: error.message });
   }
