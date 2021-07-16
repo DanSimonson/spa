@@ -60,7 +60,7 @@ function Message() {
   /****Methods****/
   useEffect(() => {
     //after submitting form, clear form fields
-    setForm(initialFormState);
+    //setForm(initialFormState);
   }, [submitted]);
   const handleChange = (event) => {
     setForm({
@@ -83,6 +83,7 @@ function Message() {
     let message = form.message;
     // form.firstName, form.lastName, form.phone, form.email, form.message;
     dispatch(createMessage(firstName, lastName, phone, email, message));
+    setForm(initialFormState);
     //validForm
     // let isValid = true;
     // if (isValid) {
