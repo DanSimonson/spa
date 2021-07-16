@@ -280,11 +280,11 @@ function Message() {
                 </Label>
                 <Input
                   type="textarea"
-                  name="content"
-                  id="content"
+                  name="message"
+                  id="message"
                   placeholder="Message"
                   onChange={handleChange}
-                  value={form.content}
+                  value={form.message}
                 />
                 {!messageInValid ? null : (
                   <Label style={{ color: "red" }}>Input cannot be empty</Label>

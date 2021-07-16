@@ -104,9 +104,11 @@ const ShowMessages = (props) => {
                       <CardTitle tag="h5">
                         First Name: {reservation.firstName}
                       </CardTitle>
-                      <CardTitle tag="h5">
+                      <CardTitle tag="h5">Phone: {reservation.phone}</CardTitle>
+                      <CardTitle tag="h5">Email: {reservation.email}</CardTitle>
+                      {/*<CardTitle tag="h5">
                         Message Date: {reservation.startDate}
-                      </CardTitle>
+                    </CardTitle>*/}
                       <CardText tag="h2">
                         Message: {reservation.message}
                       </CardText>

@@ -34,7 +34,6 @@ export const createMessage =
         email,
         message,
       });
-      //console.log("data:", data);
       dispatch({ type: MESSAGE_CREATE_SUCCESS, payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
@@ -47,6 +46,9 @@ export const createMessage =
       });
     }
   };
+export const updateMessage = () => async (dispatch, getState) => {
+  //dispatch({type: })
+};
 
 // export const createProduct = () => async (dispatch, getState) => {
 //   dispatch({ type: PRODUCT_CREATE_REQUEST });
