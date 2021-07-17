@@ -37,6 +37,32 @@ messageRouter.post(
   })
 );
 
+messageRouter.put(
+  "/update",
+  expressAsyncHandler(async (req, res) => {
+    const messageUpdate = await Message.findById(req.body._id);
+    console.log("messageUpdate: ", messageUpdate);
+    if (messageUpdate) {
+      messageUpdate.firstName = req.body.firstName || user.firstName;
+      messageUpdate.lastName = req.body.lastName || user.lastName;
+      messageUpdate.phone = req.body.phone || user.phone;
+      messageUpdate.email = req.body.email || user.email;
+      messageUpdate.message = req.body.message || user.message;
+      const updatedMessage = await messageUpdate.save();
+      res.send({
+        //_id: updatedMessage._id,
+        firstName: updatedMessage.firstName,
+        lastName: updatedMessage.lastName,
+        phone: updatedMessage.phone,
+        email: updatedMessage.email,
+        message: updatedMessage.message,
+      });
+    } else {
+      res.status(404).send({ message: "Message Not Found" });
+    }
+  })
+);
+
 export default messageRouter;
 
 // // @route GET api/items

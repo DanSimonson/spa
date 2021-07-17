@@ -10,6 +10,7 @@ dotenv.config();
 connectDB();
 const app = express();
 
+//middleware to return json correctly
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 //   res.send(data.messages);
 // });
 
+//root routes
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
 
