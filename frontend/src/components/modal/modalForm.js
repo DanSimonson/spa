@@ -131,9 +131,9 @@ const ModalForm = (props) => {
 
   return (
     <div>
-      <Button color="danger" onClick={toggle}>
+      {/* <Button color="danger" onClick={toggle}>
         {buttonLabel}
-      </Button>
+      </Button> */}
       <Modal
         isOpen={modal}
         modalTransition={{ timeout: 700 }}

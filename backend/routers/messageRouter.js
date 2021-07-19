@@ -1,7 +1,7 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Message from "../models/messageModel.js";
-import data from "../data.js";
+//import data from "../data.js";
 
 const messageRouter = express.Router();
 
@@ -13,14 +13,14 @@ messageRouter.get(
   })
 );
 
-messageRouter.get(
-  "/seed",
-  expressAsyncHandler(async (req, res) => {
-    //await Message.remove({});
-    const createdMessages = await Message.insertMany(data.messages);
-    res.send({ createdMessages });
-  })
-);
+// messageRouter.get(
+//   "/seed",
+//   expressAsyncHandler(async (req, res) => {
+//     //await Message.remove({});
+//     const createdMessages = await Message.insertMany(data.messages);
+//     res.send({ createdMessages });
+//   })
+// );
 
 messageRouter.post(
   "/create",

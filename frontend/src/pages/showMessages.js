@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../components/navbar";
 import LoadingBox from "../components/loadingBox";
 import MessageBox from "../components/messageBox";
-//import Nav from "../../res_components/navbar/nav.js";
 import ModalForm from "../components/modal/modalForm";
 import Footer from "../components/footer";
 import Axios from "axios";
@@ -53,8 +52,9 @@ const ShowMessages = (props) => {
 
   const handleEdit = (id) => {
     //open modal
-    // setOpenModal(true);
-    // console.log("messages handleEdit id: ", id);
+    setOpenModal(true);
+    console.log("messages handleEdit id: ", id);
+    setFoundArray(id);
     // let i;
     // for (i = 0; i < reservations.length; i++) {
     //   if (reservations[i]._id === id) {
@@ -64,7 +64,7 @@ const ShowMessages = (props) => {
   };
   const handleClose = (modalVal) => {
     //if open, close modal from parent
-    //setOpenModal(false);
+    setOpenModal(false);
   };
 
   /*** end methods ***/
@@ -140,12 +140,12 @@ const ShowMessages = (props) => {
       )}
       <Footer />
       {/*{loading === true && <Footer />}*/}
-      {/*<ModalForm
+      <ModalForm
         reservations={reservations}
         foundReservation={foundArray}
         openModal={openModal}
         handleCloseFromParent={handleClose}
-      />*/}
+      />
     </>
   );
 };
