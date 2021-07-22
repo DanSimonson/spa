@@ -5,6 +5,7 @@ import Navbar from "../components/navbar";
 import LoadingBox from "../components/loadingBox";
 import MessageBox from "../components/messageBox";
 import ModalForm from "../components/modal/modalForm";
+import EditForm from "../components/EditForm";
 import Footer from "../components/footer";
 import Axios from "axios";
 import {
@@ -34,13 +35,14 @@ const AddButton = styled.button`
 `;
 
 const ShowMessages = (props) => {
-  console.log("props: ", props);
+  //console.log("props: ", props);
   const { reservations } = props;
   const [openModal, setOpenModal] = useState(false);
   const [foundArray, setFoundArray] = useState([]);
   const dispatch = useDispatch();
   const messageList = useSelector((state) => state.messageList);
   const { loading, error, messages } = messageList;
+  localStorage.setItem("messages", JSON.stringify(messages));
   /*** methods ***/
   useEffect(() => {
     dispatch(listMessages());
@@ -51,22 +53,14 @@ const ShowMessages = (props) => {
   };
 
   const handleEdit = (id) => {
+    //if open, close modal from parent
     //open modal
     setOpenModal(true);
-    console.log("messages handleEdit id: ", id);
-    setFoundArray(id);
-    // let i;
-    // for (i = 0; i < reservations.length; i++) {
-    //   if (reservations[i]._id === id) {
-    //     setFoundArray(reservations[i]);
-    //   }
-    // }
   };
   const handleClose = (modalVal) => {
     //if open, close modal from parent
     setOpenModal(false);
   };
-
   /*** end methods ***/
   return (
     <>
@@ -141,11 +135,12 @@ const ShowMessages = (props) => {
       <Footer />
       {/*{loading === true && <Footer />}*/}
       <ModalForm
-        reservations={reservations}
+        reservations={messages}
         foundReservation={foundArray}
         openModal={openModal}
         handleCloseFromParent={handleClose}
       />
+      <EditForm reservations={messages} />
     </>
   );
 };

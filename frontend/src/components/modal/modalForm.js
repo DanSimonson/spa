@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { listMessages } from "../../actions/messageActions";
 import { useHistory } from "react-router-dom";
 import {
   Button,
@@ -18,24 +21,19 @@ import {
   FormFeedback,
   InputGroupAddon,
 } from "reactstrap";
-//import { ReservationContext } from "../../context/reservationContext";
 
 const initialFormState = {
   lastName: "",
   firstName: "",
-  startDate: "",
-  endDate: "",
+  phone: "",
+  email: "",
   message: "",
 };
-
+let tempLastName = "";
+let tempFirstName = "";
 const ModalForm = (props) => {
-  const {
-    buttonLabel,
-    className,
-    openModal,
-    //reservations,
-    foundReservation,
-  } = props;
+  const { buttonLabel, className, openModal, reservations, foundReservation } =
+    props;
   const [modal, setModal] = useState(false);
   //from sendMessage
   const [form, setForm] = useState(initialFormState);
@@ -45,8 +43,40 @@ const ModalForm = (props) => {
   const [firstNameInValid, setFirstNameInValid] = useState(false);
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
-  //   const { reservations, setReservations, deleteReservation, getData } =
-  //     useContext(ReservationContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState(tempLastName);
+  //   const [email, setEmail] = useState(reservations[0].email);
+  //   const [address, setAddress] = useState(reservations[0].message);
+  //   const [phone, setPhone] = useState(reservations[0].phone);
+  //let msg = localStorage.getItem("messages");
+
+  if (reservations) {
+    console.log("reservations[0]", reservations[0]);
+    if (reservations[0]) {
+      console.log("reservations[0].lastName: ", reservations[0].lastName);
+      tempLastName = reservations[0].lastName;
+    }
+  }
+  useEffect(() => {
+    if (lastName !== "") {
+      loadData();
+    }
+  }, [tempLastName]);
+
+  const loadData = () => {
+    setLastName(tempLastName);
+  };
+  //console.log("reservations: ", reservations);
+  // const dispatch = useDispatch();
+  // const messageList = useSelector((state) => state.messageList);
+  //const { loading, error, messages } = messageList;
+  // if (reservations[0]) {
+  //   const [firstName, setFirstName] = useState(reservations[0].firstName);
+  //   const [lastName, setLastName] = useState(reservations[0].lastName);
+  //   const [email, setEmail] = useState(reservations[0].email);
+  //   const [address, setAddress] = useState(reservations[0].message);
+  //   const [phone, setPhone] = useState(reservations[0].phone);
+  // }
 
   const toggle = () => {
     //close or open
@@ -62,18 +92,41 @@ const ModalForm = (props) => {
   }, [openModal]);
 
   useEffect(() => {
-    setForm(foundReservation);
-  }, [foundReservation]);
+    //setForm(foundReservation);
+    //console.log("reservations: ", reservations);
+    //console.log("foundReservation: ", foundReservation);
+    //load data into form input fields
+    //if (reservations) {
+    //if (reservations[0]) {
+    // let i = 0;
+    // for (i = 0; i < reservations.length; i++) {
+    //   if (foundReservation === reservations[i]._id) {
+    //     console.log("reservation id: ", reservations[i]._id);
+    //     let myFormState = {
+    //       lastName: reservations.lastName,
+    //       firstName: reservations.firstName,
+    //       phone: reservations.phone,
+    //       email: reservations.email,
+    //       message: reservations.message,
+    //     };
+    //     setForm(myFormState);
+    //   }
+    // }
+    //}
+    //}
+  }, [foundReservation, reservations]);
 
   const handleChange = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
+    //setLastName();
+    // setForm({
+    //   ...form,
+    //   [event.target.name]: event.target.value,
+    // });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    let validForm = validateForm();
+
+    //let validForm = validateForm();
     // if (validForm) {
     //   axios
     //     .patch(`/api/items/${foundReservation._id}`, form)
@@ -86,54 +139,51 @@ const ModalForm = (props) => {
     //     });
     // }
   };
-  const validateForm = () => {
-    let lastName = document.forms["sendMessageForm"]["lastName"].value;
-    let firstName = document.forms["sendMessageForm"]["firstName"].value;
-    let startDate = document.forms["sendMessageForm"]["startDate"].value;
-    let message = document.forms["sendMessageForm"]["message"].value;
-    if (lastName === "") {
-      setLastNameInValid(true);
-      return false;
-    } else {
-      if (firstName === "") {
-        setLastNameInValid(false);
-        setFirstNameInValid(true);
-        return false;
-      } else {
-        if (startDate === "") {
-          setLastNameInValid(false);
-          setFirstNameInValid(false);
-          setInValidDate(true);
-          return false;
-        } else {
-          if (!validateDate(startDate)) {
-            setInValidDate(true);
-            return false;
-          } else {
-            if (message === "") {
-              setInValidDate(false);
-              setMessageInValid(true);
-              return true;
-            } else {
-              setMessageInValid(false);
-            }
-          }
-        }
-      }
-    }
-    return true;
-  };
-  function validateDate(testdate) {
-    var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-    return date_regex.test(testdate);
-  }
+  // const validateForm = () => {
+  //   let lastName = document.forms["sendMessageForm"]["lastName"].value;
+  //   let firstName = document.forms["sendMessageForm"]["firstName"].value;
+  //   let startDate = document.forms["sendMessageForm"]["startDate"].value;
+  //   let message = document.forms["sendMessageForm"]["message"].value;
+  //   if (lastName === "") {
+  //     setLastNameInValid(true);
+  //     return false;
+  //   } else {
+  //     if (firstName === "") {
+  //       setLastNameInValid(false);
+  //       setFirstNameInValid(true);
+  //       return false;
+  //     } else {
+  //       if (startDate === "") {
+  //         setLastNameInValid(false);
+  //         setFirstNameInValid(false);
+  //         setInValidDate(true);
+  //         return false;
+  //       } else {
+  //         if (!validateDate(startDate)) {
+  //           setInValidDate(true);
+  //           return false;
+  //         } else {
+  //           if (message === "") {
+  //             setInValidDate(false);
+  //             setMessageInValid(true);
+  //             return true;
+  //           } else {
+  //             setMessageInValid(false);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return true;
+  // };
+  // function validateDate(testdate) {
+  //   var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+  //   return date_regex.test(testdate);
+  // }
   /*** end methods ***/
 
   return (
     <div>
-      {/* <Button color="danger" onClick={toggle}>
-        {buttonLabel}
-      </Button> */}
       <Modal
         isOpen={modal}
         modalTransition={{ timeout: 700 }}
@@ -171,13 +221,10 @@ const ModalForm = (props) => {
                   id="lastName"
                   placeholder="Last Name"
                   onChange={handleChange}
-                  value={form.lastName}
+                  value={lastName}
                 />
-                {lastNameInValid ? (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                ) : null}
               </FormGroup>
-              <FormGroup>
+              {/* <FormGroup>
                 <Label
                   style={{
                     color: "#fff",
@@ -195,11 +242,8 @@ const ModalForm = (props) => {
                   onChange={handleChange}
                   value={form.firstName}
                 />
-                {firstNameInValid ? (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                ) : null}
-              </FormGroup>
-              <FormGroup>
+              </FormGroup> */}
+              {/* <FormGroup>
                 <Label
                   style={{
                     color: "#fff",
@@ -217,13 +261,8 @@ const ModalForm = (props) => {
                   onChange={handleChange}
                   value={form.startDate}
                 />
-                {inValidDate ? (
-                  <Label style={{ color: "red" }}>
-                    Input format must be mm/dd/yyy
-                  </Label>
-                ) : null}
-              </FormGroup>
-              <FormGroup>
+              </FormGroup> */}
+              {/* <FormGroup>
                 <Label
                   style={{
                     color: "#fff",
@@ -241,10 +280,7 @@ const ModalForm = (props) => {
                   onChange={handleChange}
                   value={form.message}
                 />
-                {messageInValid ? (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                ) : null}
-              </FormGroup>
+              </FormGroup> */}
               <div className="mb-3 mt-3 text-right">
                 <Button type="submit" color="warning" size="lg">
                   Submit
