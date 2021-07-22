@@ -56,6 +56,7 @@ const ShowMessages = (props) => {
     //if open, close modal from parent
     //open modal
     setOpenModal(true);
+    setFoundArray(id);
   };
   const handleClose = (modalVal) => {
     //if open, close modal from parent

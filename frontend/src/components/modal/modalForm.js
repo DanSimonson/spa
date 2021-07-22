@@ -51,11 +51,28 @@ const ModalForm = (props) => {
   //let msg = localStorage.getItem("messages");
 
   if (reservations) {
-    console.log("reservations[0]", reservations[0]);
-    if (reservations[0]) {
-      console.log("reservations[0].lastName: ", reservations[0].lastName);
-      tempLastName = reservations[0].lastName;
+    //console.log("reservations[0]", reservations[0]);
+    // if (reservations[0]) {
+    //   console.log("reservations[0].lastName: ", reservations[0].lastName);
+    //   console.log("reservations[0]._id: ", reservations[0]._id);
+    //   tempLastName = reservations[0].lastName;
+    // }
+    let index;
+    for (let i = 0; i < reservations.length; i++) {
+      if (reservations[i]._id === foundReservation) {
+        index = Number.parseInt(i);
+        tempLastName = reservations[index].lastName;
+      }
     }
+    // let index = 3;
+    // if (reservations[index]) {
+    //   console.log(
+    //     "reservations[index].lastName: ",
+    //     reservations[index].lastName
+    //   );
+    //   console.log("reservations[index]._id: ", reservations[index]._id);
+    //   tempLastName = reservations[index].lastName;
+    // }
   }
   useEffect(() => {
     if (lastName !== "") {
