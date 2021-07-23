@@ -62,15 +62,6 @@ const ModalForm = (props) => {
     }
   }
   useEffect(() => {
-    // if (
-    //   lastName !== "" &&
-    //   firstName !== "" &&
-    //   msg !== "" &&
-    //   phone !== "" &&
-    //   email !== ""
-    // ) {
-    //   loadData();
-    // }
     loadData();
   }, [tempLastName, tempFirstName, tempMsg, phone, email]);
 
