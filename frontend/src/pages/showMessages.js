@@ -5,7 +5,6 @@ import Navbar from "../components/navbar";
 import LoadingBox from "../components/loadingBox";
 import MessageBox from "../components/messageBox";
 import ModalForm from "../components/modal/modalForm";
-import EditForm from "../components/EditForm";
 import Footer from "../components/footer";
 import Axios from "axios";
 import {
@@ -35,14 +34,12 @@ const AddButton = styled.button`
 `;
 
 const ShowMessages = (props) => {
-  //console.log("props: ", props);
-  const { reservations } = props;
+  console.log("ShowMessages props: ", props);
   const [openModal, setOpenModal] = useState(false);
   const [foundArray, setFoundArray] = useState([]);
   const dispatch = useDispatch();
   const messageList = useSelector((state) => state.messageList);
   const { loading, error, messages } = messageList;
-  localStorage.setItem("messages", JSON.stringify(messages));
   /*** methods ***/
   useEffect(() => {
     dispatch(listMessages());
@@ -52,7 +49,9 @@ const ShowMessages = (props) => {
     //props.handleDeleteFromParent(_id, index);
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = (event, id) => {
+    console.log("event.target", event.target);
+    console.log("id", id);
     //if open, close modal from parent
     //open modal
     setOpenModal(true);
@@ -62,6 +61,11 @@ const ShowMessages = (props) => {
     //if open, close modal from parent
     setOpenModal(false);
   };
+  if (messageList) {
+    //do something
+    console.log("do something with messageList: ", messageList.messages);
+    localStorage.setItem("msgs", JSON.stringify(messageList.messages));
+  }
   /*** end methods ***/
   return (
     <>
@@ -101,9 +105,6 @@ const ShowMessages = (props) => {
                       </CardTitle>
                       <CardTitle tag="h5">Phone: {reservation.phone}</CardTitle>
                       <CardTitle tag="h5">Email: {reservation.email}</CardTitle>
-                      {/*<CardTitle tag="h5">
-                        Message Date: {reservation.startDate}
-                    </CardTitle>*/}
                       <CardText tag="h2">
                         Message: {reservation.message}
                       </CardText>
@@ -111,7 +112,9 @@ const ShowMessages = (props) => {
                         <Button
                           color="warning"
                           size="lg"
-                          onClick={() => handleEdit(reservation._id)}
+                          onClick={(event) =>
+                            handleEdit(event, reservation._id)
+                          }
                         >
                           Edit
                         </Button>{" "}
@@ -134,85 +137,14 @@ const ShowMessages = (props) => {
         </>
       )}
       <Footer />
-      {/*{loading === true && <Footer />}*/}
       <ModalForm
         reservations={messages}
         foundReservation={foundArray}
         openModal={openModal}
         handleCloseFromParent={handleClose}
       />
-      <EditForm reservations={messages} />
     </>
   );
 };
 
 export default ShowMessages;
-
-/*{!reservations.length > 0 ? (
-        <Col sm="12" md={{ size: 4, offset: 4 }}>
-          <Spinner size="lg" color="info" />
-        </Col>
-      ) : (
-        <ListGroup className="mt-4">
-          {reservations.map((reservation, index) => (
-            <div>
-              <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}>
-                  <Card
-                    body
-                    inverse
-                    style={{
-                      backgroundColor: "#6a0dad",
-                      borderColor: "#FFFF00",
-                    }}
-                    className="text-center"
-                    key={reservation._id}
-                  >
-                    <CardTitle tag="h1">RESERVATION INFORMATION</CardTitle>
-                    <CardTitle tag="h5">
-                      Reservation ID: {reservation._id}
-                    </CardTitle>
-                    <CardTitle tag="h5">
-                      Last Name: {reservation.lastName}
-                    </CardTitle>
-                    <CardTitle tag="h5">
-                      First Name: {reservation.firstName}
-                    </CardTitle>
-                    <CardTitle tag="h5">
-                      Message Date: {reservation.startDate}
-                    </CardTitle>
-                    <CardText tag="h2">Message: {reservation.message}</CardText>
-                    <div>
-                      <Button
-                        color="warning"
-                        size="lg"
-                        onClick={() => handleEdit(reservation._id)}
-                      >
-                        Edit
-                      </Button>{" "}
-                      <Button
-                        color="warning"
-                        size="lg"
-                        onClick={(event) =>
-                          handleDelete(reservation._id, index)
-                        }
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          ))}
-        </ListGroup>
-      )}
-      {reservations.length > 0 && <Footer />}
-      <ModalForm
-        reservations={reservations}
-        foundReservation={foundArray}
-        openModal={openModal}
-        handleCloseFromParent={handleClose}
-                    />*/
-//</div>
-//);

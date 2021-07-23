@@ -22,78 +22,65 @@ import {
   InputGroupAddon,
 } from "reactstrap";
 
-const initialFormState = {
-  lastName: "",
-  firstName: "",
-  phone: "",
-  email: "",
-  message: "",
-};
+//initial values
 let tempLastName = "";
 let tempFirstName = "";
+let tempMsg = "";
+let tempPhone = "";
+let tempEmail = "";
+
 const ModalForm = (props) => {
   const { buttonLabel, className, openModal, reservations, foundReservation } =
     props;
+  console.log("ModalForm props: ", props);
   const [modal, setModal] = useState(false);
-  //from sendMessage
-  const [form, setForm] = useState(initialFormState);
-  const [submitted, setSubmitted] = useState(false);
-  const history = useHistory();
-  const [lastNameInValid, setLastNameInValid] = useState(false);
-  const [firstNameInValid, setFirstNameInValid] = useState(false);
-  const [inValidDate, setInValidDate] = useState(false);
-  const [messageInValid, setMessageInValid] = useState(false);
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState(tempLastName);
   const [lastName, setLastName] = useState(tempLastName);
-  //   const [email, setEmail] = useState(reservations[0].email);
-  //   const [address, setAddress] = useState(reservations[0].message);
-  //   const [phone, setPhone] = useState(reservations[0].phone);
-  //let msg = localStorage.getItem("messages");
+  const [msg, setMsg] = useState(tempMsg);
+  const [phone, setPhone] = useState(tempPhone);
+  const [email, setEmail] = useState(tempEmail);
+  // if(msgs){
+  //   let ms = localStorage
+  // }
+  let ms = localStorage.getItem("msgs");
+  if (ms) {
+  }
+  //let msgs = localStorage.getItem(msgs);
+  //console.log("msgs: ", msgs["0"]["0"]);
 
   if (reservations) {
-    //console.log("reservations[0]", reservations[0]);
-    // if (reservations[0]) {
-    //   console.log("reservations[0].lastName: ", reservations[0].lastName);
-    //   console.log("reservations[0]._id: ", reservations[0]._id);
-    //   tempLastName = reservations[0].lastName;
-    // }
     let index;
     for (let i = 0; i < reservations.length; i++) {
       if (reservations[i]._id === foundReservation) {
         index = Number.parseInt(i);
         tempLastName = reservations[index].lastName;
+        tempFirstName = reservations[index].firstName;
+        tempMsg = reservations[index].message;
+        tempPhone = reservations[index].phone;
+        tempEmail = reservations[index].email;
       }
     }
-    // let index = 3;
-    // if (reservations[index]) {
-    //   console.log(
-    //     "reservations[index].lastName: ",
-    //     reservations[index].lastName
-    //   );
-    //   console.log("reservations[index]._id: ", reservations[index]._id);
-    //   tempLastName = reservations[index].lastName;
-    // }
   }
   useEffect(() => {
-    if (lastName !== "") {
-      loadData();
-    }
-  }, [tempLastName]);
+    // if (
+    //   lastName !== "" &&
+    //   firstName !== "" &&
+    //   msg !== "" &&
+    //   phone !== "" &&
+    //   email !== ""
+    // ) {
+    //   loadData();
+    // }
+    loadData();
+  }, [tempLastName, tempFirstName, tempMsg, phone, email]);
 
   const loadData = () => {
     setLastName(tempLastName);
+    setFirstName(tempFirstName);
+    setMsg(tempMsg);
+    setPhone(tempPhone);
+    setEmail(tempEmail);
   };
-  //console.log("reservations: ", reservations);
-  // const dispatch = useDispatch();
-  // const messageList = useSelector((state) => state.messageList);
-  //const { loading, error, messages } = messageList;
-  // if (reservations[0]) {
-  //   const [firstName, setFirstName] = useState(reservations[0].firstName);
-  //   const [lastName, setLastName] = useState(reservations[0].lastName);
-  //   const [email, setEmail] = useState(reservations[0].email);
-  //   const [address, setAddress] = useState(reservations[0].message);
-  //   const [phone, setPhone] = useState(reservations[0].phone);
-  // }
 
   const toggle = () => {
     //close or open
@@ -108,31 +95,6 @@ const ModalForm = (props) => {
     }
   }, [openModal]);
 
-  useEffect(() => {
-    //setForm(foundReservation);
-    //console.log("reservations: ", reservations);
-    //console.log("foundReservation: ", foundReservation);
-    //load data into form input fields
-    //if (reservations) {
-    //if (reservations[0]) {
-    // let i = 0;
-    // for (i = 0; i < reservations.length; i++) {
-    //   if (foundReservation === reservations[i]._id) {
-    //     console.log("reservation id: ", reservations[i]._id);
-    //     let myFormState = {
-    //       lastName: reservations.lastName,
-    //       firstName: reservations.firstName,
-    //       phone: reservations.phone,
-    //       email: reservations.email,
-    //       message: reservations.message,
-    //     };
-    //     setForm(myFormState);
-    //   }
-    // }
-    //}
-    //}
-  }, [foundReservation, reservations]);
-
   const handleChange = (event) => {
     //setLastName();
     // setForm({
@@ -142,61 +104,8 @@ const ModalForm = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    //let validForm = validateForm();
-    // if (validForm) {
-    //   axios
-    //     .patch(`/api/items/${foundReservation._id}`, form)
-    //     .then((response) => {
-    //       getData();
-    //       toggle();
-    //     })
-    //     .catch((err) => {
-    //       console.log("handleSubmit error: ", err);
-    //     });
-    // }
   };
-  // const validateForm = () => {
-  //   let lastName = document.forms["sendMessageForm"]["lastName"].value;
-  //   let firstName = document.forms["sendMessageForm"]["firstName"].value;
-  //   let startDate = document.forms["sendMessageForm"]["startDate"].value;
-  //   let message = document.forms["sendMessageForm"]["message"].value;
-  //   if (lastName === "") {
-  //     setLastNameInValid(true);
-  //     return false;
-  //   } else {
-  //     if (firstName === "") {
-  //       setLastNameInValid(false);
-  //       setFirstNameInValid(true);
-  //       return false;
-  //     } else {
-  //       if (startDate === "") {
-  //         setLastNameInValid(false);
-  //         setFirstNameInValid(false);
-  //         setInValidDate(true);
-  //         return false;
-  //       } else {
-  //         if (!validateDate(startDate)) {
-  //           setInValidDate(true);
-  //           return false;
-  //         } else {
-  //           if (message === "") {
-  //             setInValidDate(false);
-  //             setMessageInValid(true);
-  //             return true;
-  //           } else {
-  //             setMessageInValid(false);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return true;
-  // };
-  // function validateDate(testdate) {
-  //   var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-  //   return date_regex.test(testdate);
-  // }
+
   /*** end methods ***/
 
   return (
@@ -241,7 +150,7 @@ const ModalForm = (props) => {
                   value={lastName}
                 />
               </FormGroup>
-              {/* <FormGroup>
+              <FormGroup>
                 <Label
                   style={{
                     color: "#fff",
@@ -255,31 +164,50 @@ const ModalForm = (props) => {
                   type="text"
                   name="firstName"
                   id="firstName"
-                  placeholder="First Name"
+                  placeholder="firstName"
                   onChange={handleChange}
-                  value={form.firstName}
+                  value={firstName}
                 />
-              </FormGroup> */}
-              {/* <FormGroup>
+              </FormGroup>
+              <FormGroup>
                 <Label
                   style={{
                     color: "#fff",
                   }}
-                  for="startDate"
+                  for="phone"
                   className="mt-3"
                 >
-                  Message Date
+                  Phone
                 </Label>
                 <Input
                   type="text"
-                  name="startDate"
-                  id="startDate"
-                  placeholder="Message Date"
+                  name="phone"
+                  id="phone"
+                  placeholder="Phone"
                   onChange={handleChange}
-                  value={form.startDate}
+                  value={phone}
                 />
-              </FormGroup> */}
-              {/* <FormGroup>
+              </FormGroup>
+              <FormGroup>
+                <Label
+                  style={{
+                    color: "#fff",
+                  }}
+                  for="email"
+                  className="mt-3"
+                >
+                  Email
+                </Label>
+                <Input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="email"
+                  onChange={handleChange}
+                  value={email}
+                />
+              </FormGroup>
+              <FormGroup>
                 <Label
                   style={{
                     color: "#fff",
@@ -295,9 +223,9 @@ const ModalForm = (props) => {
                   id="message"
                   placeholder="Message"
                   onChange={handleChange}
-                  value={form.message}
+                  value={msg}
                 />
-              </FormGroup> */}
+              </FormGroup>
               <div className="mb-3 mt-3 text-right">
                 <Button type="submit" color="warning" size="lg">
                   Submit
