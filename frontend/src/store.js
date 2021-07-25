@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import {
   messageListReducer,
   messageCreateReducer,
+  messageUpdateReducer,
 } from "./reducers/messageReducer";
 import { userRegisterReducer, userSigninReducer } from "./reducers/userReducer";
 
@@ -16,6 +17,7 @@ const initialState = {
 const reducer = combineReducers({
   messageList: messageListReducer,
   messageCreate: messageCreateReducer,
+  messageUpdate: messageUpdateReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
 });

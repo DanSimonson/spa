@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { listMessages } from "../../actions/messageActions";
+import { listMessages, updateMessage } from "../../actions/messageActions";
 import { useHistory } from "react-router-dom";
 import {
   Button,
@@ -30,40 +30,43 @@ let tempPhone = "";
 let tempEmail = "";
 
 const ModalForm = (props) => {
+  console.log("ModalForm props: ", props);
+  //const productId = props.match.params.id
+  //const messageId = props.match.params.id
   const { buttonLabel, className, openModal, reservations, foundReservation } =
     props;
-  console.log("ModalForm props: ", props);
+  //console.log("ModalForm props: ", props);
   const [modal, setModal] = useState(false);
   const [firstName, setFirstName] = useState(tempLastName);
   const [lastName, setLastName] = useState(tempLastName);
   const [msg, setMsg] = useState(tempMsg);
   const [phone, setPhone] = useState(tempPhone);
   const [email, setEmail] = useState(tempEmail);
-  // if(msgs){
-  //   let ms = localStorage
-  // }
-  let ms = localStorage.getItem("msgs");
-  if (ms) {
-  }
-  //let msgs = localStorage.getItem(msgs);
-  //console.log("msgs: ", msgs["0"]["0"]);
+
+  const dispatch = useDispatch();
 
   if (reservations) {
-    let index;
-    for (let i = 0; i < reservations.length; i++) {
-      if (reservations[i]._id === foundReservation) {
-        index = Number.parseInt(i);
-        tempLastName = reservations[index].lastName;
-        tempFirstName = reservations[index].firstName;
-        tempMsg = reservations[index].message;
-        tempPhone = reservations[index].phone;
-        tempEmail = reservations[index].email;
-      }
-    }
+    //let index;
+    // for (let i = 0; i < reservations.length; i++) {
+    //   if (reservations[i]._id === foundReservation) {
+    //     index = Number.parseInt(i);
+    //     tempLastName = reservations[index].lastName;
+    //     tempFirstName = reservations[index].firstName;
+    //     tempMsg = reservations[index].message;
+    //     tempPhone = reservations[index].phone;
+    //     tempEmail = reservations[index].email;
+    //   }
+    //}
+    //index = Number.parseInt(i);
+    tempLastName = foundReservation.lastName;
+    tempFirstName = foundReservation.firstName;
+    tempMsg = foundReservation.message;
+    tempPhone = foundReservation.phone;
+    tempEmail = foundReservation.email;
   }
   useEffect(() => {
     loadData();
-  }, [tempLastName, tempFirstName, tempMsg, phone, email]);
+  }, [tempLastName, tempFirstName, tempMsg, tempPhone, tempEmail]);
 
   const loadData = () => {
     setLastName(tempLastName);
@@ -87,7 +90,9 @@ const ModalForm = (props) => {
   }, [openModal]);
 
   const handleChange = (event) => {
-    //setLastName();
+    console.log("event.target.value: ", event.target.value);
+    console.log("event.target.name: ", event.target.name);
+
     // setForm({
     //   ...form,
     //   [event.target.name]: event.target.value,
@@ -95,8 +100,18 @@ const ModalForm = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("event: ", event);
+    dispatch(
+      updateMessage({
+        _id: foundReservation._id,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        message: msg,
+      })
+    );
   };
-
   /*** end methods ***/
 
   return (
@@ -137,7 +152,7 @@ const ModalForm = (props) => {
                   name="lastName"
                   id="lastName"
                   placeholder="Last Name"
-                  onChange={handleChange}
+                  onChange={(event) => setLastName(event.target.value)}
                   value={lastName}
                 />
               </FormGroup>
@@ -156,7 +171,7 @@ const ModalForm = (props) => {
                   name="firstName"
                   id="firstName"
                   placeholder="firstName"
-                  onChange={handleChange}
+                  onChange={(event) => setFirstName(event.target.value)}
                   value={firstName}
                 />
               </FormGroup>
@@ -175,7 +190,7 @@ const ModalForm = (props) => {
                   name="phone"
                   id="phone"
                   placeholder="Phone"
-                  onChange={handleChange}
+                  onChange={(event) => setPhone(event.target.value)}
                   value={phone}
                 />
               </FormGroup>
@@ -194,7 +209,7 @@ const ModalForm = (props) => {
                   name="email"
                   id="email"
                   placeholder="email"
-                  onChange={handleChange}
+                  onChange={(event) => setEmail(event.target.value)}
                   value={email}
                 />
               </FormGroup>
@@ -213,7 +228,7 @@ const ModalForm = (props) => {
                   name="message"
                   id="message"
                   placeholder="Message"
-                  onChange={handleChange}
+                  onChange={(event) => setMsg(event.target.value)}
                   value={msg}
                 />
               </FormGroup>

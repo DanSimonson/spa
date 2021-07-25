@@ -7,6 +7,10 @@ import {
   MESSAGE_CREATE_SUCCESS,
   MESSAGE_CREATE_FAIL,
   MESSAGE_CREATE_RESET,
+  MESSAGE_UPDATE_REQUEST,
+  MESSAGE_UPDATE_SUCCESS,
+  MESSAGE_UPDATE_FAIL,
+  MESSAGE_UPDATE_RESET,
 } from "../constants/messageConstants";
 
 export const listMessages = () => async (dispatch) => {
@@ -46,8 +50,18 @@ export const createMessage =
       });
     }
   };
-export const updateMessage = () => async (dispatch, getState) => {
-  //dispatch({type: })
+export const updateMessage = (messageUpdate) => async (dispatch) => {
+  dispatch({ type: MESSAGE_UPDATE_REQUEST, payload: messageUpdate });
+  try {
+    const { data } = await Axios.put(
+      `/api/messages/${messageUpdate._id}`,
+      messageUpdate
+    );
+    dispatch({ type: MESSAGE_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.message;
+    dispatch({ type: MESSAGE_UPDATE_FAIL, payload: message });
+  }
 };
 
 // export const createProduct = () => async (dispatch, getState) => {

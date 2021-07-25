@@ -34,7 +34,7 @@ const AddButton = styled.button`
 `;
 
 const ShowMessages = (props) => {
-  console.log("ShowMessages props: ", props);
+  //console.log("ShowMessages props: ", props);
   const [openModal, setOpenModal] = useState(false);
   const [foundArray, setFoundArray] = useState([]);
   const dispatch = useDispatch();
@@ -49,23 +49,23 @@ const ShowMessages = (props) => {
     //props.handleDeleteFromParent(_id, index);
   };
 
-  const handleEdit = (event, id) => {
-    console.log("event.target", event.target);
-    console.log("id", id);
+  const handleEdit = (event, reservation) => {
+    //console.log("reservation", reservation);
+    //console.log("id", id);
     //if open, close modal from parent
     //open modal
     setOpenModal(true);
-    setFoundArray(id);
+    setFoundArray(reservation);
   };
   const handleClose = (modalVal) => {
     //if open, close modal from parent
     setOpenModal(false);
   };
-  if (messageList) {
-    //do something
-    console.log("do something with messageList: ", messageList.messages);
-    localStorage.setItem("msgs", JSON.stringify(messageList.messages));
-  }
+  // if (messageList) {
+  //   //do something
+  //   //console.log("do something with messageList: ", messageList.messages);
+  //   localStorage.setItem("msgs", JSON.stringify(messageList.messages));
+  // }
   /*** end methods ***/
   return (
     <>
@@ -112,9 +112,7 @@ const ShowMessages = (props) => {
                         <Button
                           color="warning"
                           size="lg"
-                          onClick={(event) =>
-                            handleEdit(event, reservation._id)
-                          }
+                          onClick={(event) => handleEdit(event, reservation)}
                         >
                           Edit
                         </Button>{" "}
