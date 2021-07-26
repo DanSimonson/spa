@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { listMessages } from "../actions/messageActions";
+import { deleteMessage, listMessages } from "../actions/messageActions";
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../components/navbar";
 import LoadingBox from "../components/loadingBox";
@@ -34,25 +34,30 @@ const AddButton = styled.button`
 `;
 
 const ShowMessages = (props) => {
-  //console.log("ShowMessages props: ", props);
+  const [toggle, setToggle] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [foundArray, setFoundArray] = useState([]);
   const dispatch = useDispatch();
   const messageList = useSelector((state) => state.messageList);
   const { loading, error, messages } = messageList;
+  const messageDelete = useSelector((state) => state.messageDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = messageDelete;
+
   /*** methods ***/
   useEffect(() => {
     dispatch(listMessages());
   }, []);
+
   const handleDelete = (_id, index) => {
-    //send _id data back to parent
-    //props.handleDeleteFromParent(_id, index);
+    dispatch(deleteMessage(_id));
+    window.location.reload();
   };
 
   const handleEdit = (event, reservation) => {
-    //console.log("reservation", reservation);
-    //console.log("id", id);
-    //if open, close modal from parent
     //open modal
     setOpenModal(true);
     setFoundArray(reservation);
@@ -61,17 +66,15 @@ const ShowMessages = (props) => {
     //if open, close modal from parent
     setOpenModal(false);
   };
-  // if (messageList) {
-  //   //do something
-  //   //console.log("do something with messageList: ", messageList.messages);
-  //   localStorage.setItem("msgs", JSON.stringify(messageList.messages));
-  // }
+
   /*** end methods ***/
   return (
     <>
       <div className="header" id="myHeader">
         <Navbar />
       </div>
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -80,7 +83,7 @@ const ShowMessages = (props) => {
         <>
           <ListGroup className="mt-4">
             {messages.map((reservation, index) => (
-              <div>
+              <div key={reservation._id}>
                 <Row>
                   <Col sm="12" md={{ size: 6, offset: 3 }}>
                     <Card

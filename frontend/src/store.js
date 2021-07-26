@@ -4,6 +4,7 @@ import {
   messageListReducer,
   messageCreateReducer,
   messageUpdateReducer,
+  messageDeleteReducer,
 } from "./reducers/messageReducer";
 import { userRegisterReducer, userSigninReducer } from "./reducers/userReducer";
 
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   messageList: messageListReducer,
   messageCreate: messageCreateReducer,
   messageUpdate: messageUpdateReducer,
+  messageDelete: messageDeleteReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
 });

@@ -11,6 +11,9 @@ import {
   MESSAGE_UPDATE_SUCCESS,
   MESSAGE_UPDATE_FAIL,
   MESSAGE_UPDATE_RESET,
+  MESSAGE_DELETE_REQUEST,
+  MESSAGE_DELETE_SUCCESS,
+  MESSAGE_DELETE_FAIL,
 } from "../constants/messageConstants";
 
 export const listMessages = () => async (dispatch) => {
@@ -61,6 +64,17 @@ export const updateMessage = (messageUpdate) => async (dispatch) => {
   } catch (error) {
     const message = error.message;
     dispatch({ type: MESSAGE_UPDATE_FAIL, payload: message });
+  }
+};
+
+export const deleteMessage = (messageId) => async (dispatch, getState) => {
+  dispatch({ type: MESSAGE_DELETE_REQUEST, payload: messageId });
+  try {
+    const { data } = Axios.delete(`/api/messages/${messageId}`);
+    dispatch({ type: MESSAGE_DELETE_SUCCESS });
+  } catch (error) {
+    const message = error.message;
+    dispatch({ type: MESSAGE_DELETE_FAIL, payload: message });
   }
 };
 

@@ -30,9 +30,6 @@ let tempPhone = "";
 let tempEmail = "";
 
 const ModalForm = (props) => {
-  console.log("ModalForm props: ", props);
-  //const productId = props.match.params.id
-  //const messageId = props.match.params.id
   const { buttonLabel, className, openModal, reservations, foundReservation } =
     props;
   //console.log("ModalForm props: ", props);
@@ -46,18 +43,6 @@ const ModalForm = (props) => {
   const dispatch = useDispatch();
 
   if (reservations) {
-    //let index;
-    // for (let i = 0; i < reservations.length; i++) {
-    //   if (reservations[i]._id === foundReservation) {
-    //     index = Number.parseInt(i);
-    //     tempLastName = reservations[index].lastName;
-    //     tempFirstName = reservations[index].firstName;
-    //     tempMsg = reservations[index].message;
-    //     tempPhone = reservations[index].phone;
-    //     tempEmail = reservations[index].email;
-    //   }
-    //}
-    //index = Number.parseInt(i);
     tempLastName = foundReservation.lastName;
     tempFirstName = foundReservation.firstName;
     tempMsg = foundReservation.message;
@@ -89,15 +74,7 @@ const ModalForm = (props) => {
     }
   }, [openModal]);
 
-  const handleChange = (event) => {
-    console.log("event.target.value: ", event.target.value);
-    console.log("event.target.name: ", event.target.name);
-
-    // setForm({
-    //   ...form,
-    //   [event.target.name]: event.target.value,
-    // });
-  };
+  const handleChange = (event) => {};
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("event: ", event);
@@ -111,6 +88,14 @@ const ModalForm = (props) => {
         message: msg,
       })
     );
+    //reset fields
+    setFirstName("");
+    setLastName("");
+    setPhone("");
+    setEmail("");
+    setMsg("");
+    //close modal
+    toggle();
   };
   /*** end methods ***/
 
