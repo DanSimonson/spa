@@ -6,7 +6,11 @@ import {
   messageUpdateReducer,
   messageDeleteReducer,
 } from "./reducers/messageReducer";
-import { userRegisterReducer, userSigninReducer } from "./reducers/userReducer";
+import {
+  userListReducer,
+  userRegisterReducer,
+  userSigninReducer,
+} from "./reducers/userReducer";
 
 const initialState = {
   userSignin: {
@@ -22,6 +26,7 @@ const reducer = combineReducers({
   messageDelete: messageDeleteReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
+  userList: userListReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

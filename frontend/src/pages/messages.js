@@ -58,10 +58,10 @@ function Message() {
   // const { loading, error, messages } = messageCreate;
 
   /****Methods****/
-  useEffect(() => {
-    //after submitting form, clear form fields
-    //setForm(initialFormState);
-  }, [submitted]);
+  // useEffect(() => {
+  //   //after submitting form, clear form fields
+  //   //setForm(initialFormState);
+  // }, [submitted]);
   const handleChange = (event) => {
     setForm({
       ...form,
@@ -74,32 +74,15 @@ function Message() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    //let validForm = validateForm();
     console.log("forms: ", form);
     let firstName = form.firstName;
     let lastName = form.lastName;
     let phone = form.phone;
     let email = form.email;
     let message = form.message;
-    // form.firstName, form.lastName, form.phone, form.email, form.message;
     dispatch(createMessage(firstName, lastName, phone, email, message));
-    setForm(initialFormState);
-    //validForm
-    // let isValid = true;
-    // if (isValid) {
-    //   axios
-    //     .post(`${process.env.REACT_APP_API}/posts`, form)
-    //     .then((response) => {
-    //       console.log("response: ", response);
-    //       //set boolean to clear form in useEffect hook
-    //       setSubmitted(true);
-    //       //redirect the page
-    //       history.push("/");
-    //     })
-    //     .catch((err) => {
-    //       console.log("handleSubmit error: ", err);
-    //     });
-    // }
+    history.push("/");
+    //setForm(initialFormState);
   };
   const validateForm = () => {
     let lastName = document.forms["sendMessageForm"]["lastName"].value;

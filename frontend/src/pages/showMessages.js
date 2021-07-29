@@ -53,8 +53,10 @@ const ShowMessages = (props) => {
   }, []);
 
   const handleDelete = (_id, index) => {
-    dispatch(deleteMessage(_id));
-    window.location.reload();
+    if (window.confirm("Are you sure to delete?")) {
+      dispatch(deleteMessage(_id));
+      window.location.reload();
+    }
   };
 
   const handleEdit = (event, reservation) => {

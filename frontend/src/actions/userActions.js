@@ -7,6 +7,9 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNOUT,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from "../constants/userConstants";
 
 export const Signin = (email, password) => async (dispatch) => {
@@ -51,4 +54,16 @@ export const register = (name, email, password) => async (dispatch) => {
 export const signout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_SIGNOUT });
+};
+
+export const listUsers = () => async (dispatch) => {
+  dispatch({ type: USER_LIST_REQUEST });
+  try {
+    const { data } = await Axios.get("/api/users");
+    dispatch({ type: USER_LIST_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message = error.message;
+    dispatch({ type: USER_LIST_FAIL, payload: message });
+  }
 };

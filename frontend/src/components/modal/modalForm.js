@@ -41,6 +41,8 @@ const ModalForm = (props) => {
   const [email, setEmail] = useState(tempEmail);
 
   const dispatch = useDispatch();
+  // const messageList = useSelector((state) => state.messageList);
+  // const { loading, error, messages } = messageList;
 
   if (reservations) {
     tempLastName = foundReservation.lastName;

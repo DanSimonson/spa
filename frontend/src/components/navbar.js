@@ -88,9 +88,11 @@ function Navbar(props) {
               </>
             ) : null}
 
-            {isAdmin ? (
+            {userInfo ? (
               <>
-                <li>{/* <a>{userInfo.data.name}</a> */}</li>
+                <li>
+                  <a>{userInfo.data.name}</a>
+                </li>
               </>
             ) : null}
             {isAdmin ? (

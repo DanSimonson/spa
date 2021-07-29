@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { listMessages } from "./actions/messageActions";
+//import { listMessages } from "./actions/messageActions";
+import { listUsers } from "./actions/userActions";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/navbar";
@@ -17,14 +18,22 @@ const BodyWrap = styled.div``;
 //   }
 
 const App = () => {
-  const [headerChange, setHeaderChange] = useState(false);
+  // const [headerChange, setHeaderChange] = useState(false);
   const history = useHistory();
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState();
+  //const userList = useSelector((state) => state.userList);
+  //console.log("userList: ", userList);
+  //const { loading, error, userInfo } = userList;
+  let dispatch = useDispatch();
+  useEffect(() => {
+    //dispatch(listUsers());
+  }, [dispatch]);
 
   useEffect(() => {
+    //dispatch(listUsers());
     //reload();
     const parralax = document.querySelector("#parallax");
     window.addEventListener("scroll", () => {
