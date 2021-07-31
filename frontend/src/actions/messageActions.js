@@ -61,6 +61,7 @@ export const updateMessage = (messageUpdate) => async (dispatch) => {
       messageUpdate
     );
     dispatch({ type: MESSAGE_UPDATE_SUCCESS, payload: data });
+    localStorage.setItem("updatedMessage", JSON.stringify(data));
   } catch (error) {
     const message = error.message;
     dispatch({ type: MESSAGE_UPDATE_FAIL, payload: message });

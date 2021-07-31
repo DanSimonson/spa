@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { deleteMessage, listMessages } from "../actions/messageActions";
+import {
+  deleteMessage,
+  listMessages,
+  updateMessage,
+} from "../actions/messageActions";
 import { useSelector, useDispatch } from "react-redux";
+//import {history} from 'react-router-dom'
+import { useForceUpdate } from "../frontUtils";
 import Navbar from "../components/navbar";
 import LoadingBox from "../components/loadingBox";
 import MessageBox from "../components/messageBox";
@@ -40,12 +46,14 @@ const ShowMessages = (props) => {
   const dispatch = useDispatch();
   const messageList = useSelector((state) => state.messageList);
   const { loading, error, messages } = messageList;
+  const forceUpdate = useForceUpdate();
   const messageDelete = useSelector((state) => state.messageDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
   } = messageDelete;
+  let temp = JSON.parse(localStorage.getItem("updatedMessage"));
 
   /*** methods ***/
   useEffect(() => {
@@ -67,6 +75,13 @@ const ShowMessages = (props) => {
   const handleClose = (modalVal) => {
     //if open, close modal from parent
     setOpenModal(false);
+  };
+  const changeReservation = (reservation) => {
+    /* parent method called from child using child's data */
+    let newReservation = JSON.stringify(reservation);
+    let newRes = JSON.parse(newReservation);
+    dispatch(updateMessage(newRes));
+    window.location.reload();
   };
 
   /*** end methods ***/
@@ -145,6 +160,7 @@ const ShowMessages = (props) => {
         foundReservation={foundArray}
         openModal={openModal}
         handleCloseFromParent={handleClose}
+        changeReservation={changeReservation}
       />
     </>
   );

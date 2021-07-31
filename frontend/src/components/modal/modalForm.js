@@ -32,17 +32,18 @@ let tempEmail = "";
 const ModalForm = (props) => {
   const { buttonLabel, className, openModal, reservations, foundReservation } =
     props;
-  //console.log("ModalForm props: ", props);
+  console.log("ModalForm props: ", props);
   const [modal, setModal] = useState(false);
   const [firstName, setFirstName] = useState(tempLastName);
   const [lastName, setLastName] = useState(tempLastName);
   const [msg, setMsg] = useState(tempMsg);
   const [phone, setPhone] = useState(tempPhone);
   const [email, setEmail] = useState(tempEmail);
-
+  //const [newReservation, setNewReservation] = useState({});
   const dispatch = useDispatch();
   // const messageList = useSelector((state) => state.messageList);
   // const { loading, error, messages } = messageList;
+  let newReservation;
 
   if (reservations) {
     tempLastName = foundReservation.lastName;
@@ -76,20 +77,56 @@ const ModalForm = (props) => {
     }
   }, [openModal]);
 
+  const changeReservation = () => {
+    return {
+      _id: foundReservation._id,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      message: msg,
+    };
+  };
+
+  //history.push('/showMessages')
   const handleChange = (event) => {};
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("event: ", event);
-    dispatch(
-      updateMessage({
-        _id: foundReservation._id,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        message: msg,
-      })
-    );
+    //console.log("event: ", event);
+    // changeReservation({
+    //   _id: foundReservation._id,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   phone: phone,
+    //   email: email,
+    //   message: msg,
+    // });
+    newReservation = {
+      _id: foundReservation._id,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      message: msg,
+    };
+    // setNewReservation({
+    //   _id: foundReservation._id,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   phone: phone,
+    //   email: email,
+    //   message: msg,
+    // });
+    // dispatch(
+    //   updateMessage({
+    //     _id: foundReservation._id,
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     phone: phone,
+    //     email: email,
+    //     message: msg,
+    //   })
+    // );
     //reset fields
     setFirstName("");
     setLastName("");
@@ -220,7 +257,21 @@ const ModalForm = (props) => {
                 />
               </FormGroup>
               <div className="mb-3 mt-3 text-right">
-                <Button type="submit" color="warning" size="lg">
+                <Button
+                  onClick={() =>
+                    props.changeReservation({
+                      _id: foundReservation._id,
+                      firstName: firstName,
+                      lastName: lastName,
+                      phone: phone,
+                      email: email,
+                      message: msg,
+                    })
+                  }
+                  type="submit"
+                  color="warning"
+                  size="lg"
+                >
                   Submit
                 </Button>{" "}
                 <Button
