@@ -38,9 +38,11 @@ messageRouter.post(
 );
 
 messageRouter.put(
-  "/update",
+  "/:id",
   expressAsyncHandler(async (req, res) => {
-    const messageUpdate = await Message.findById(req.body._id);
+    const id = req.params.id;
+    console.log(id);
+    const messageUpdate = await Message.findById(id);
     console.log("messageUpdate: ", messageUpdate);
     if (messageUpdate) {
       messageUpdate.firstName = req.body.firstName || user.firstName;
@@ -59,6 +61,19 @@ messageRouter.put(
       });
     } else {
       res.status(404).send({ message: "Message Not Found" });
+    }
+  })
+);
+
+messageRouter.delete(
+  "/:id",
+  expressAsyncHandler(async (req, res) => {
+    const msg = await Message.findById(req.params.id);
+    if (msg) {
+      const deleteMsg = await msg.remove();
+      res.send({ note: "Message Deleted", msg: deleteMsg });
+    } else {
+      res.status(404).send({ note: "Message Not Found" });
     }
   })
 );
