@@ -14,12 +14,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const __dirname = path.resolve;
-app.use(express.static(path.join(__dirname, "./frontend/build/index.html")));
-app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "/frontend/build/index.html"))
-);
-
 // app.get("/api/messages", (req, res) => {
 //   res.send(data.messages);
 // });
@@ -28,9 +22,15 @@ app.get("*", (req, res) =>
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
 
-app.get("/", (req, res) => {
-  res.send("Server is ready");
-});
+const __dirname = path.resolve;
+app.use(express.static(path.join(__dirname, "./frontend/build/index.html")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "/frontend/build/index.html"))
+);
+
+// app.get("/", (req, res) => {
+//   res.send("Server is ready");
+// });
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
