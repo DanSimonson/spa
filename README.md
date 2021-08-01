@@ -1,11 +1,18 @@
 ### A Spa Website Project
 
-> This is a full stack (MERN) app with MongoDB, React, Express, Nodejs. This is the front end React code deployed on Heroku.
+> This is a full stack (MERN) app with MongoDB, React, Express, Nodejs, deployed on Heroku.
 
-### DEMO 
-### React with Redux state management Front End Code
-### Github Node, Express, MongoDB Back End Code
-### JWT Authentication, Protected Routes Included
+### Front End Code
+
+> React library with Redux state management is used on the front end.
+
+### Back End Code
+
+> Node, Express and MongoDb are used on the back end.
+
+### Authentication and Routing
+
+> JWT Authentication is used for login and registration and includes protected routes.
 
 [Click Here For DEMO ](https://spa-mariposa.herokuapp.com/)
 
@@ -13,7 +20,7 @@
 
 ## App Info
 
-This website has full-stack capability with a beautiful front end. 
+This website has full-stack capability with a beautiful front end.
 
 ### Author
 
