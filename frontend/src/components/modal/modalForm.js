@@ -21,6 +21,7 @@ import {
   FormFeedback,
   InputGroupAddon,
 } from "reactstrap";
+import * as Validate from "../validation/validate";
 
 //initial values
 let tempLastName = "";
@@ -39,11 +40,7 @@ const ModalForm = (props) => {
   const [msg, setMsg] = useState(tempMsg);
   const [phone, setPhone] = useState(tempPhone);
   const [email, setEmail] = useState(tempEmail);
-  //const [newReservation, setNewReservation] = useState({});
   const dispatch = useDispatch();
-  // const messageList = useSelector((state) => state.messageList);
-  // const { loading, error, messages } = messageList;
-  let newReservation;
 
   if (reservations) {
     tempLastName = foundReservation.lastName;
@@ -57,6 +54,7 @@ const ModalForm = (props) => {
   }, [tempLastName, tempFirstName, tempMsg, tempPhone, tempEmail]);
 
   const loadData = () => {
+    console.log("lastName: ", tempLastName);
     setLastName(tempLastName);
     setFirstName(tempFirstName);
     setMsg(tempMsg);
@@ -88,46 +86,20 @@ const ModalForm = (props) => {
     };
   };
 
-  //history.push('/showMessages')
   const handleChange = (event) => {};
   const handleSubmit = (event) => {
     event.preventDefault();
-    //console.log("event: ", event);
-    // changeReservation({
-    //   _id: foundReservation._id,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   phone: phone,
-    //   email: email,
-    //   message: msg,
-    // });
-    newReservation = {
+    let errorMsg = Validate.EditForm({
       _id: foundReservation._id,
       firstName: firstName,
       lastName: lastName,
       phone: phone,
       email: email,
       message: msg,
-    };
-    // setNewReservation({
-    //   _id: foundReservation._id,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   phone: phone,
-    //   email: email,
-    //   message: msg,
-    // });
-    // dispatch(
-    //   updateMessage({
-    //     _id: foundReservation._id,
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     phone: phone,
-    //     email: email,
-    //     message: msg,
-    //   })
-    // );
-    //reset fields
+    });
+    console.log("errorMsg: ", errorMsg);
+
+    //clear form fields
     setFirstName("");
     setLastName("");
     setPhone("");
@@ -179,6 +151,9 @@ const ModalForm = (props) => {
                   onChange={(event) => setLastName(event.target.value)}
                   value={lastName}
                 />
+                {/*{!firstNameInValid ? null : (
+                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
+                )}*/}
               </FormGroup>
               <FormGroup>
                 <Label
@@ -198,6 +173,9 @@ const ModalForm = (props) => {
                   onChange={(event) => setFirstName(event.target.value)}
                   value={firstName}
                 />
+                {/*{!firstNameInValid ? null : (
+                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
+                )}*/}
               </FormGroup>
               <FormGroup>
                 <Label

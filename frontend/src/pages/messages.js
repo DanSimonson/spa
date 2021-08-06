@@ -175,10 +175,8 @@ function Message() {
                   placeholder="Last Name"
                   onChange={handleChange}
                   value={form.lastName}
+                  required
                 />
-                {!lastNameInValid ? null : (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                )}
               </FormGroup>
               <FormGroup>
                 <Label
@@ -197,6 +195,7 @@ function Message() {
                   placeholder="First Name"
                   onChange={handleChange}
                   value={form.firstName}
+                  required
                 />
                 {!firstNameInValid ? null : (
                   <Label style={{ color: "red" }}>Input cannot be empty</Label>
