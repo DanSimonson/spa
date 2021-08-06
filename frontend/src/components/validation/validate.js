@@ -31,9 +31,9 @@ export function EditForm(formData) {
     if (formField[0] === "message") {
       let isValidMsg = isMsgValid(formData.lastName.length);
       validMsg = GetErr(isValidMsg, msgInput);
-      let newObj = { firstName: formField[1] };
-      validFirstName = { ...validFirstName, ...newObj };
-      isValidArr.push(validFirstName);
+      let newObj = { message: formField[1] };
+      validMsg = { ...validMsg, ...newObj };
+      isValidArr.push(validMsg);
     }
   });
   console.log("isValidArr: ", isValidArr);
