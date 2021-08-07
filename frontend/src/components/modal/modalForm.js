@@ -30,10 +30,12 @@ let tempMsg = "";
 let tempPhone = "";
 let tempEmail = "";
 
+let errorMsg;
 const ModalForm = (props) => {
   const { buttonLabel, className, openModal, reservations, foundReservation } =
     props;
   console.log("ModalForm props: ", props);
+  const [errorMessage, setErrorMessage] = useState([]);
   const [modal, setModal] = useState(false);
   const [firstName, setFirstName] = useState(tempLastName);
   const [lastName, setLastName] = useState(tempLastName);
@@ -89,7 +91,7 @@ const ModalForm = (props) => {
   const handleChange = (event) => {};
   const handleSubmit = (event) => {
     event.preventDefault();
-    let errorMsg = Validate.EditForm({
+    errorMsg = Validate.EditForm({
       _id: foundReservation._id,
       firstName: firstName,
       lastName: lastName,
@@ -98,15 +100,20 @@ const ModalForm = (props) => {
       message: msg,
     });
     console.log("errorMsg: ", errorMsg);
+    setErrorMessage(errorMsg);
+    console.log("errorMessage: ", errorMessage);
+    console.log("errorMessage[0].msg");
+
+    //if(errorMessag[0])
 
     //clear form fields
-    setFirstName("");
-    setLastName("");
-    setPhone("");
-    setEmail("");
-    setMsg("");
+    // setFirstName("");
+    // setLastName("");
+    // setPhone("");
+    // setEmail("");
+    // setMsg("");
     //close modal
-    toggle();
+    //toggle();
   };
   /*** end methods ***/
 
@@ -151,6 +158,16 @@ const ModalForm = (props) => {
                   onChange={(event) => setLastName(event.target.value)}
                   value={lastName}
                 />
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && errorMsg[0].msg}{" "}
+                </span>
+                {errorMessage.length !== 0 ? (
+                  <Label style={{ color: "red" }}>
+                    <span style={{ color: "red", zIndex: 2 }}>
+                      {errorMessage[0].msg}{" "}
+                    </span>
+                  </Label>
+                ) : null}
                 {/*{!firstNameInValid ? null : (
                   <Label style={{ color: "red" }}>Input cannot be empty</Label>
                 )}*/}
@@ -173,6 +190,9 @@ const ModalForm = (props) => {
                   onChange={(event) => setFirstName(event.target.value)}
                   value={firstName}
                 />
+                {/*{!firstNameInValid ? null : (
+                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
+                )}*/}
                 {/*{!firstNameInValid ? null : (
                   <Label style={{ color: "red" }}>Input cannot be empty</Label>
                 )}*/}

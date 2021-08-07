@@ -53,6 +53,9 @@ export function EditForm(formData) {
     }
   });
   console.log("isValidArr: ", isValidArr);
+  for (let i = 0; i < isValidArr.length; i++) {
+    console.log("isValidArr[i].valid", isValidArr[i].valid);
+  }
   //   const { lastName, firstName, message, phone, email } = formData;
   //   console.log("email: ", email);
   //   let isValid;
