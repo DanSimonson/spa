@@ -7,6 +7,8 @@ export function EditForm(formData) {
   let validLastName;
   let validFirstName;
   let validMsg;
+  let validPhone;
+  let validEmail;
   let isValidArr = [];
   let nameInput = "nameInput";
   let msgInput = "msgInput";
@@ -34,6 +36,20 @@ export function EditForm(formData) {
       let newObj = { message: formField[1] };
       validMsg = { ...validMsg, ...newObj };
       isValidArr.push(validMsg);
+    }
+    if (formField[0] === "phone") {
+      let isValidPhone = isPhoneValid(formData.phone);
+      validPhone = GetErr(isValidPhone, phoneInput);
+      let newObj = { phone: formField[1] };
+      validPhone = { ...validPhone, ...newObj };
+      isValidArr.push(validPhone);
+    }
+    if (formField[0] === "email") {
+      let isValidEmail = isEmailValid(formData.email);
+      validEmail = GetErr(isValidEmail, emailInput);
+      let newObj = { email: formField[1] };
+      validEmail = { ...validEmail, ...newObj };
+      isValidArr.push(validEmail);
     }
   });
   console.log("isValidArr: ", isValidArr);

@@ -9,13 +9,13 @@ export function GetErr(isValidCheck, type) {
       if (isValidCheck) {
         error = {
           valid: isValidCheck,
-          message: "",
+          msg: "",
         };
         return error;
       } else {
         error = {
           valid: isValidCheck,
-          message: "input characters must be between 0 and 40 in length",
+          msg: "input characters must be between 0 and 40 in length",
         };
         return error;
       }
@@ -24,13 +24,13 @@ export function GetErr(isValidCheck, type) {
       if (isValidCheck) {
         error = {
           valid: isValidCheck,
-          message: "",
+          msg: "",
         };
         return error;
       } else {
         error = {
           valid: isValidCheck,
-          message: "input characters must be between 0 and 40 in length",
+          msg: "input characters must be between 0 and 40 in length",
         };
         return error;
       }
@@ -38,27 +38,27 @@ export function GetErr(isValidCheck, type) {
       if (isValidCheck) {
         error = {
           valid: isValidCheck,
-          message: "",
+          msg: "",
         };
         return error;
       } else {
         error = {
           valid: isValidCheck,
-          message: "please use a valid email",
+          msg: "please use a valid email",
         };
         return error;
       }
-    case "phoneinput":
+    case "phoneInput":
       if (isValidCheck) {
         error = {
           valid: isValidCheck,
-          message: "",
+          msg: "",
         };
         return error;
       } else {
         error = {
           valid: isValidCheck,
-          message: "phone must be In numeric format: xxx-xxx-xxxx",
+          msg: "phone must be In numeric format: xxx-xxx-xxxx",
         };
         return error;
       }
