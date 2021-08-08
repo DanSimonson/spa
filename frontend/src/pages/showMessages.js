@@ -81,7 +81,7 @@ const ShowMessages = (props) => {
     let newReservation = JSON.stringify(reservation);
     let newRes = JSON.parse(newReservation);
     dispatch(updateMessage(newRes));
-    //window.location.reload();
+    window.location.reload();
   };
 
   /*** end methods ***/

@@ -34,7 +34,7 @@ let errorMsg;
 const ModalForm = (props) => {
   const { buttonLabel, className, openModal, reservations, foundReservation } =
     props;
-  console.log("ModalForm props: ", props);
+  //console.log("ModalForm props: ", props);
   const [errorMessage, setErrorMessage] = useState([]);
   const [modal, setModal] = useState(false);
   const [firstName, setFirstName] = useState(tempLastName);
@@ -78,6 +78,7 @@ const ModalForm = (props) => {
   }, [openModal]);
 
   const changeReservation = () => {
+    let errorFound = false;
     errorMsg = Validate.EditForm({
       _id: foundReservation._id,
       firstName: firstName,
@@ -86,69 +87,33 @@ const ModalForm = (props) => {
       email: email,
       message: msg,
     });
-    console.log("errorMsg: ", errorMsg);
-    console.log("errorMsg[0].firstName", errorMsg[0].firstName);
-    console.log("props: ", props);
-    console.log("firstName: ", firstName);
-    return props.changeReservation({
-      _id: foundReservation._id,
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      message: msg,
-    });
-    // return {
-    //   _id: foundReservation._id,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   phone: phone,
-    //   email: email,
-    //   message: msg,
-    // };
+    setErrorMessage(errorMsg);
+    for (let i = 0; i < errorMsg.length; i++) {
+      console.log("errorMsg[i].valid", errorMsg[i].valid);
+      if (errorMsg[i].valid !== true) {
+        errorFound = true;
+      }
+    }
+    if (errorFound === true) {
+      //errorFound do nothing
+      console.log("errorMsg: ", errorMsg);
+    } else {
+      return props.changeReservation({
+        _id: foundReservation._id,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        message: msg,
+      });
+      //close modal
+      toggle();
+    }
   };
 
   const handleChange = (event) => {};
   const handleSubmit = (event) => {
     event.preventDefault();
-    let errorFound = false;
-    // errorMsg = Validate.EditForm({
-    //   _id: foundReservation._id,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   phone: phone,
-    //   email: email,
-    //   message: msg,
-    // });
-    //let errArray = [];
-    //errArray.push(errorMsg);
-    //console.log("errArray: ", errArray);
-    // console.log("errorMsg: ", errorMsg);
-    // setErrorMessage(errorMsg);
-    // console.log("errorMessage: ", errorMessage);
-    // console.log("errorMessage[0].msg");
-
-    // for (let i = 0; i < errorMsg.length; i++) {
-    //   console.log("errorMsg[i].valid", errorMsg[i].valid);
-    //   if (errorMsg[i].valid !== true) {
-    //     errorFound = true;
-    //   }
-    // }
-    // if (errorFound === true) {
-    //   //errorFound do nothing
-    // } else {
-    //   //close modal
-    //   toggle();
-    // }
-
-    //clear form fields
-    // setFirstName("");
-    // setLastName("");
-    // setPhone("");
-    // setEmail("");
-    // setMsg("");
-    //close modal
-    // toggle();
   };
   /*** end methods ***/
 
@@ -194,7 +159,7 @@ const ModalForm = (props) => {
                   value={firstName}
                 />
                 <span style={{ color: "red", zIndex: 2 }}>
-                  {errorMsg && errorMsg[0].msg}{" "}
+                  {errorMsg && `${errorMsg[0].msg}`}{" "}
                 </span>
               </FormGroup>
               <FormGroup>
@@ -216,7 +181,7 @@ const ModalForm = (props) => {
                   value={lastName}
                 />
                 <span style={{ color: "red", zIndex: 2 }}>
-                  {errorMsg && errorMsg[1].msg}{" "}
+                  {errorMsg && `${errorMsg[1].msg}`}{" "}
                 </span>
               </FormGroup>
 
@@ -239,7 +204,7 @@ const ModalForm = (props) => {
                   value={phone}
                 />
                 <span style={{ color: "red", zIndex: 2 }}>
-                  {errorMsg && errorMsg[2].msg}{" "}
+                  {errorMsg && `${errorMsg[2].msg}`}{" "}
                 </span>
               </FormGroup>
               <FormGroup>
@@ -261,7 +226,7 @@ const ModalForm = (props) => {
                   value={email}
                 />
                 <span style={{ color: "red", zIndex: 2 }}>
-                  {errorMsg && errorMsg[3].msg}{" "}
+                  {errorMsg && `${errorMsg[3].msg}`}{" "}
                 </span>
               </FormGroup>
               <FormGroup>
@@ -283,7 +248,7 @@ const ModalForm = (props) => {
                   value={msg}
                 />
                 <span style={{ color: "red", zIndex: 2 }}>
-                  {errorMsg && errorMsg[4].msg}{" "}
+                  {errorMsg && `${errorMsg[4].msg}`}{" "}
                 </span>
               </FormGroup>
               {/** props.changeReservation({
@@ -297,7 +262,7 @@ const ModalForm = (props) => {
               <div className="mb-3 mt-3 text-right">
                 <Button
                   onClick={() => changeReservation()}
-                  type="submit"
+                  //type="submit"
                   color="warning"
                   size="lg"
                 >
