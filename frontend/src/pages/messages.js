@@ -20,6 +20,7 @@ import {
   FormFeedback,
   InputGroupAddon,
 } from "reactstrap";
+import * as Validate from "../components/validation/validate";
 
 const BodyWrap = styled.div`
   height: 90vh;
@@ -42,6 +43,8 @@ const initialFormState = {
   message: "",
 };
 
+let errorMsg;
+
 function Message() {
   const [form, setForm] = useState(initialFormState);
   const [submitted, setSubmitted] = useState(false);
@@ -52,16 +55,11 @@ function Message() {
   const [emailInValid, setEmailInValid] = useState(true);
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
   const dispatch = useDispatch();
-  //getting the messages from redux using useSelector
-  // const messageCreate = useSelector((state) => state.messageCreate);
-  // const { loading, error, messages } = messageCreate;
 
   /****Methods****/
-  // useEffect(() => {
-  //   //after submitting form, clear form fields
-  //   //setForm(initialFormState);
-  // }, [submitted]);
+
   const handleChange = (event) => {
     setForm({
       ...form,
@@ -74,60 +72,36 @@ function Message() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("forms: ", form);
-    let firstName = form.firstName;
-    let lastName = form.lastName;
-    let phone = form.phone;
-    let email = form.email;
-    let message = form.message;
-    dispatch(createMessage(firstName, lastName, phone, email, message));
-    history.push("/");
-    //setForm(initialFormState);
-  };
-  const validateForm = () => {
-    let lastName = document.forms["sendMessageForm"]["lastName"].value;
-    let firstName = document.forms["sendMessageForm"]["firstName"].value;
-    let startDate = document.forms["sendMessageForm"]["startDate"].value;
-    let phone = document.forms["sendMessageForm"]["phone"].value;
-    let email = document.forms["sendMessageForm"]["email"].value;
-    let message = document.forms["sendMessageForm"]["content"].value;
-    if (lastName === "") {
-      setLastNameInValid(true);
-      return false;
-    } else {
-      if (firstName === "") {
-        setLastNameInValid(false);
-        setFirstNameInValid(true);
-        return false;
-      } else {
-        if (startDate === "") {
-          setLastNameInValid(false);
-          setFirstNameInValid(false);
-          setInValidDate(true);
-          return false;
-        } else {
-          if (!validateDate(startDate)) {
-            setInValidDate(true);
-            return false;
-          } else {
-            if (message === "") {
-              setInValidDate(false);
-              setMessageInValid(true);
-              return true;
-            } else {
-              setMessageInValid(false);
-            }
-          }
-        }
+    let errorFound;
+    errorMsg = Validate.EditForm({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      phone: form.phone,
+      email: form.email,
+      message: form.message,
+    });
+
+    setErrorMessage(errorMsg);
+    for (let i = 0; i < errorMsg.length; i++) {
+      console.log("errorMsg[i].valid", errorMsg[i].valid);
+      if (errorMsg[i].valid !== true) {
+        errorFound = true;
       }
     }
-    return true;
+    if (errorFound === true) {
+      //do nothing and fix error on form
+    } else {
+      let firstName = form.firstName;
+      let lastName = form.lastName;
+      let phone = form.phone;
+      let email = form.email;
+      let message = form.message;
+      dispatch(createMessage(firstName, lastName, phone, email, message));
+      history.push("/");
+      setForm(initialFormState);
+    }
   };
 
-  function validateDate(testdate) {
-    var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-    return date_regex.test(testdate);
-  }
   /****end Methods***/
 
   /****rendering****/
@@ -175,8 +149,10 @@ function Message() {
                   placeholder="Last Name"
                   onChange={handleChange}
                   value={form.lastName}
-                  required
                 />
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && `${errorMsg[1].msg}`}{" "}
+                </span>
               </FormGroup>
               <FormGroup>
                 <Label
@@ -195,11 +171,10 @@ function Message() {
                   placeholder="First Name"
                   onChange={handleChange}
                   value={form.firstName}
-                  required
                 />
-                {!firstNameInValid ? null : (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                )}
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && `${errorMsg[0].msg}`}{" "}
+                </span>
               </FormGroup>
               <FormGroup>
                 <Label style={{ color: "#fff" }} for="phone" className="mt-3">
@@ -213,6 +188,9 @@ function Message() {
                   onChange={handleChange}
                   value={form.phone}
                 ></Input>
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && `${errorMsg[2].msg}`}{" "}
+                </span>
               </FormGroup>
               <FormGroup>
                 <Label style={{ color: "#fff" }} for="email" className="mt-3">
@@ -226,6 +204,9 @@ function Message() {
                   onChange={handleChange}
                   value={form.email}
                 ></Input>
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && `${errorMsg[3].msg}`}{" "}
+                </span>
               </FormGroup>
               {/*<FormGroup>
                 <Label
@@ -269,9 +250,9 @@ function Message() {
                   onChange={handleChange}
                   value={form.message}
                 />
-                {!messageInValid ? null : (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                )}
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && `${errorMsg[4].msg}`}{" "}
+                </span>
               </FormGroup>
               <div className="mb-3 mt-3 text-right">
                 <Button type="submit" color="warning" size="lg">
