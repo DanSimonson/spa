@@ -78,19 +78,6 @@ const ModalForm = (props) => {
   }, [openModal]);
 
   const changeReservation = () => {
-    return {
-      _id: foundReservation._id,
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      message: msg,
-    };
-  };
-
-  const handleChange = (event) => {};
-  const handleSubmit = (event) => {
-    event.preventDefault();
     errorMsg = Validate.EditForm({
       _id: foundReservation._id,
       firstName: firstName,
@@ -100,11 +87,59 @@ const ModalForm = (props) => {
       message: msg,
     });
     console.log("errorMsg: ", errorMsg);
-    setErrorMessage(errorMsg);
-    console.log("errorMessage: ", errorMessage);
-    console.log("errorMessage[0].msg");
+    console.log("errorMsg[0].firstName", errorMsg[0].firstName);
+    console.log("props: ", props);
+    console.log("firstName: ", firstName);
+    return props.changeReservation({
+      _id: foundReservation._id,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      message: msg,
+    });
+    // return {
+    //   _id: foundReservation._id,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   phone: phone,
+    //   email: email,
+    //   message: msg,
+    // };
+  };
 
-    //if(errorMessag[0])
+  const handleChange = (event) => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let errorFound = false;
+    // errorMsg = Validate.EditForm({
+    //   _id: foundReservation._id,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   phone: phone,
+    //   email: email,
+    //   message: msg,
+    // });
+    //let errArray = [];
+    //errArray.push(errorMsg);
+    //console.log("errArray: ", errArray);
+    // console.log("errorMsg: ", errorMsg);
+    // setErrorMessage(errorMsg);
+    // console.log("errorMessage: ", errorMessage);
+    // console.log("errorMessage[0].msg");
+
+    // for (let i = 0; i < errorMsg.length; i++) {
+    //   console.log("errorMsg[i].valid", errorMsg[i].valid);
+    //   if (errorMsg[i].valid !== true) {
+    //     errorFound = true;
+    //   }
+    // }
+    // if (errorFound === true) {
+    //   //errorFound do nothing
+    // } else {
+    //   //close modal
+    //   toggle();
+    // }
 
     //clear form fields
     // setFirstName("");
@@ -113,7 +148,7 @@ const ModalForm = (props) => {
     // setEmail("");
     // setMsg("");
     //close modal
-    //toggle();
+    // toggle();
   };
   /*** end methods ***/
 
@@ -145,6 +180,28 @@ const ModalForm = (props) => {
                   style={{
                     color: "#fff",
                   }}
+                  for="firstName"
+                  className="mt-3"
+                >
+                  First Name
+                </Label>
+                <Input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="firstName"
+                  onChange={(event) => setFirstName(event.target.value)}
+                  value={firstName}
+                />
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && errorMsg[0].msg}{" "}
+                </span>
+              </FormGroup>
+              <FormGroup>
+                <Label
+                  style={{
+                    color: "#fff",
+                  }}
                   for="lastName"
                   className="mt-3"
                 >
@@ -159,44 +216,10 @@ const ModalForm = (props) => {
                   value={lastName}
                 />
                 <span style={{ color: "red", zIndex: 2 }}>
-                  {errorMsg && errorMsg[0].msg}{" "}
+                  {errorMsg && errorMsg[1].msg}{" "}
                 </span>
-                {errorMessage.length !== 0 ? (
-                  <Label style={{ color: "red" }}>
-                    <span style={{ color: "red", zIndex: 2 }}>
-                      {errorMessage[0].msg}{" "}
-                    </span>
-                  </Label>
-                ) : null}
-                {/*{!firstNameInValid ? null : (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                )}*/}
               </FormGroup>
-              <FormGroup>
-                <Label
-                  style={{
-                    color: "#fff",
-                  }}
-                  for="firstName"
-                  className="mt-3"
-                >
-                  First Name
-                </Label>
-                <Input
-                  type="text"
-                  name="firstName"
-                  id="firstName"
-                  placeholder="firstName"
-                  onChange={(event) => setFirstName(event.target.value)}
-                  value={firstName}
-                />
-                {/*{!firstNameInValid ? null : (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                )}*/}
-                {/*{!firstNameInValid ? null : (
-                  <Label style={{ color: "red" }}>Input cannot be empty</Label>
-                )}*/}
-              </FormGroup>
+
               <FormGroup>
                 <Label
                   style={{
@@ -215,6 +238,9 @@ const ModalForm = (props) => {
                   onChange={(event) => setPhone(event.target.value)}
                   value={phone}
                 />
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && errorMsg[2].msg}{" "}
+                </span>
               </FormGroup>
               <FormGroup>
                 <Label
@@ -234,6 +260,9 @@ const ModalForm = (props) => {
                   onChange={(event) => setEmail(event.target.value)}
                   value={email}
                 />
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && errorMsg[3].msg}{" "}
+                </span>
               </FormGroup>
               <FormGroup>
                 <Label
@@ -253,19 +282,21 @@ const ModalForm = (props) => {
                   onChange={(event) => setMsg(event.target.value)}
                   value={msg}
                 />
+                <span style={{ color: "red", zIndex: 2 }}>
+                  {errorMsg && errorMsg[4].msg}{" "}
+                </span>
               </FormGroup>
-              <div className="mb-3 mt-3 text-right">
-                <Button
-                  onClick={() =>
-                    props.changeReservation({
+              {/** props.changeReservation({
                       _id: foundReservation._id,
                       firstName: firstName,
                       lastName: lastName,
                       phone: phone,
                       email: email,
                       message: msg,
-                    })
-                  }
+                    })*/}
+              <div className="mb-3 mt-3 text-right">
+                <Button
+                  onClick={() => changeReservation()}
                   type="submit"
                   color="warning"
                   size="lg"

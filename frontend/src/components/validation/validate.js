@@ -24,14 +24,14 @@ export function EditForm(formData) {
       isValidArr.push(validLastName);
     }
     if (formField[0] === "firstName") {
-      let isValidFirstName = isCharsValid(formData.lastName.length);
+      let isValidFirstName = isCharsValid(formData.firstName.length);
       validFirstName = GetErr(isValidFirstName, nameInput);
       let newObj = { firstName: formField[1] };
       validFirstName = { ...validFirstName, ...newObj };
       isValidArr.push(validFirstName);
     }
     if (formField[0] === "message") {
-      let isValidMsg = isMsgValid(formData.lastName.length);
+      let isValidMsg = isMsgValid(formData.message.length);
       validMsg = GetErr(isValidMsg, msgInput);
       let newObj = { message: formField[1] };
       validMsg = { ...validMsg, ...newObj };
@@ -53,9 +53,9 @@ export function EditForm(formData) {
     }
   });
   console.log("isValidArr: ", isValidArr);
-  for (let i = 0; i < isValidArr.length; i++) {
-    console.log("isValidArr[i].valid", isValidArr[i].valid);
-  }
+  //   for (let i = 0; i < isValidArr.length; i++) {
+  //     console.log("isValidArr[i].valid", isValidArr[i].valid);
+  //   }
   //   const { lastName, firstName, message, phone, email } = formData;
   //   console.log("email: ", email);
   //   let isValid;
