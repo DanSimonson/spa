@@ -6,6 +6,7 @@ import Messages from "./pages/messages";
 import ShowMessages from "./pages/showMessages";
 import SigninPage from "./pages/signIn";
 import RegisterPage from "./pages/register";
+import PromosPage from "./pages/promos";
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
         <Route path="/showmessages" exact component={ShowMessages} />
         <Route path="/signin" exact component={SigninPage} />
         <Route path="/register" exact component={RegisterPage} />
+        <Route path="/promos" exact component={PromosPage} />
       </Switch>
     </BrowserRouter>
   );

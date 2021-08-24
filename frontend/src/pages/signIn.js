@@ -42,7 +42,7 @@ export default function SigninPage() {
     dispatch(Signin(email, password));
     setEmail("");
     setPassword("");
-    history.push("/");
+    history.push("/promos");
   };
 
   return (
