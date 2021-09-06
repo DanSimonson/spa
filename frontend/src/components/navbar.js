@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
 
 function Navbar(props) {
+  let history = useHistory();
   const { email, password } = props;
   let dispatch = useDispatch();
   let isAdmin = false;
@@ -48,8 +49,6 @@ function Navbar(props) {
     }
   }
 
-  let history = useHistory();
-
   const goHome = () => {
     history.push("/");
   };
@@ -82,17 +81,6 @@ function Navbar(props) {
             <li>
               <a onClick={createMessage}>Send Message</a>
             </li>
-            {isAdmin === false && userInfo ? (
-              <>
-                <li>{/* <a>{userInfo.data.name}</a> */}</li>
-              </>
-            ) : null}
-
-            {userInfo ? (
-              <>
-                <li>{/* <a>{userInfo.data.name}</a> */}</li>
-              </>
-            ) : null}
             {isAdmin ? (
               <Link to="/showMessages">
                 <li>
@@ -101,14 +89,24 @@ function Navbar(props) {
               </Link>
             ) : null}
             {userInfo ? (
-              <li>
-                <a onClick={signoutHandler}>Sign Out</a>
-              </li>
+              <>
+                <li>
+                  <a>Welcome User</a>
+                </li>
+                <li>
+                  <a onClick={signoutHandler}>Sign Out</a>
+                </li>
+              </>
             ) : null}
             {!userInfo ? (
-              <li>
-                <a onClick={signinHandler}>Sign In</a>
-              </li>
+              <>
+                <li>
+                  <a>Welcome Guest</a>
+                </li>
+                <li>
+                  <a onClick={signinHandler}>Sign In</a>
+                </li>
+              </>
             ) : null}
           </ul>
         </div>

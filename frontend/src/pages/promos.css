@@ -1,10 +1,69 @@
-.c {
-  border: 5px solid beige;
+/* :root {
+  --clr-neutral-900: hsl(207, 19%, 9%);
+  --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-neutral-400: hsl(142, 90%, 61%);
+}
+::before,
+::after {
+  box-sizing: border-box;
+}
+.main-body {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  line-height: 1.6;
+  background: #13181c;
+  font-family: sans-serif;
+}
+main {
+  padding: 30px;
+}
+.card {
+  
+  color: var(--clr-neutral-100);
+  background-image: url(img/bg-card.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform-origin: left;
+  transition: transform 1000ms ease-in-out;
+  margin-right: auto;
+  margin-left: auto;
+ 
+  height: 100%;
+}
+.card:hover {
+  transform-origin: left;
+  transform: scale(1.02);
+}
+.card-content {
+ 
+  padding: 1.5em;
+  background: linear-gradient(hsl(0, 0%, 0%, 1), hsl(0 0% 0% / 0));
+  height: 100%;
+}
+.card-line {
+  
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0;
+  transition: opacity 1000ms ease-in-out;
+}
+hr:not([size]) {
+  height: 10px;
+}
+.card:hover .card-line {
+  color: var(--clr-neutral-100);
+  transform: scale(1);
+  opacity: 0.5;
+}
+
+.main-content {
+  
   display: grid;
   height: 100vh;
   width: 100vw;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 30% 30% 20% 20%;
   grid-template-areas:
     "main main main sidebar"
     "main main main sidebar"
@@ -15,6 +74,9 @@
 main {
   background-color: teal;
   grid-area: main;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #sidebar {
   background-color: thistle;
@@ -26,7 +88,7 @@ main {
 }
 
 @media only screen and (max-width: 550px) {
-  .c {
+  .main-content {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
@@ -34,4 +96,4 @@ main {
       "main"
       "content";
   }
-}
+} */

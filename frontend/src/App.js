@@ -16,7 +16,7 @@ const BodyWrap = styled.div``;
 //     color: green;
 //     margin: 0 auto;
 //   }
-
+let temp;
 const App = () => {
   // const [headerChange, setHeaderChange] = useState(false);
   const history = useHistory();
@@ -24,6 +24,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState();
+  let user = JSON.parse(localStorage.getItem("userInfo"));
   //const userList = useSelector((state) => state.userList);
   //console.log("userList: ", userList);
   //const { loading, error, userInfo } = userList;
@@ -34,7 +35,7 @@ const App = () => {
 
   useEffect(() => {
     //dispatch(listUsers());
-    //reload();
+    reload();
     const parralax = document.querySelector("#parallax");
     window.addEventListener("scroll", () => {
       let offset = window.pageYOffset;
@@ -44,20 +45,21 @@ const App = () => {
     });
   }, []);
 
-  // function reload() {
-  //   let temp = JSON.parse(localStorage.getItem("userInfo"));
-  //   if (temp) {
-  //     //window.location.reload();
-  //   }
-  //   //window.location.reload();
-  // }
+  function reload() {
+    temp = JSON.parse(localStorage.getItem("userInfo"));
+    if (temp) {
+      //window.location.reload();
+    }
+    //window.location.reload();
+  }
   const sendMessage = () => {
     //redirect the page
     history.push("/messages");
   };
-
+  // <div>user: {user && user.name}</div>
   return (
     <>
+      <div>{user && user.name}</div>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -69,7 +71,7 @@ const App = () => {
           </div>
           <BodyWrap>
             <div className="bodyDiv" id="parallax">
-              <h2>Mariposa Therapeutic Spa</h2>
+              <h2>Welcome to Mariposa Therapeutic Spa {user && user.name}</h2>
               <p>
                 Enter the tranquility of the Hot Tub and immediately feel the
                 accumulated stress of daily life begin to dissipate. Let the

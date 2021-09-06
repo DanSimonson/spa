@@ -42,7 +42,14 @@ export default function SigninPage() {
     dispatch(Signin(email, password));
     setEmail("");
     setPassword("");
-    history.push("/promos");
+    let user = localStorage.setItem("userData", JSON.stringify(userInfo));
+    console.log("user: ", user);
+    history.push("/");
+    //window.history.back();
+    // var currentLocation = window.location;
+    // console.log("currentLocation: ", currentLocation);
+    // console.log("currentLocation.origin: ", currentLocation.origin);
+    // //window.location.replace(currentLocation.origin);
   };
 
   return (
