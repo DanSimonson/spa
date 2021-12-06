@@ -21,9 +21,9 @@ import {
   InputGroupAddon,
 } from "reactstrap";
 import * as Validate from "../components/validation/validate";
-
+//100vh
 const BodyWrap = styled.div`
-  height: 90vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
